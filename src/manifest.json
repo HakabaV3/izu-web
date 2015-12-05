@@ -1,9 +1,9 @@
 {
-	"name": "RRadar Analytics",
-	"short_name": "RRadar",
+	"name": "旅ログ",
+	"short_name": "旅ログ",
 	"start_url": "/",
 	"display": "standalone",
 	"orientation": "portrait",
-	"theme_color": "#1976d2",
-	"background_color": "#1565c0"
+	"theme_color": "#f57c00",
+	"background_color": "#f57c00"
 }

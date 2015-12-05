@@ -1,29 +1,28 @@
 importScripts('/Store/idbStorage.js', '/service/tl-Http/Http.js');
 
 (function() {
-	var LOCALSTORAGE_AUTH_EMAIL = 'e',
-		LOCALSTORAGE_AUTH_TOKEN = 't',
-		LOCALSTORAGE_AUTH_EXPIRED = 'x',
-		EXPIRED_FROM_LAST_REQUEST = 60 * 60 * 1000; //1hour
+	var LOCALSTORAGE_AUTH_TOKEN = 't',
+		LOCALSTORAGE_AUTH_USERNAME = 'n',
+		LOCALSTORAGE_AUTH_USERID = 'i';
 
 	var store = new Store({
 			isLogined: null,
 			isLoading: false,
 			isError: false,
-			inputEmail: '',
+			inputUsername: '',
 			inputPassword: '',
-			loginedEmail: '',
+			loginedUsername: '',
+			loginedUserId: '',
 			token: '',
-			expired: null,
 			errorMessage: ''
 		}),
 		state = store.state;
 
 
 	store.on('login', function(params) {
-			state.isError = false;
 			state.isLoading = true;
-			state.inputEmail = params.email;
+			state.isError = false;
+			state.inputUsername = params.username;
 			state.inputPassword = params.password;
 			state.errorMessage = '';
 			store.dispatch();
@@ -31,19 +30,16 @@ importScripts('/Store/idbStorage.js', '/service/tl-Http/Http.js');
 			pLogin();
 		})
 		.on('logout', function(params) {
-			state.isError = false;
 			state.isLogined = false;
-			state.inputEmail = '';
+			state.isError = false;
+			state.inputUsername = '';
 			state.inputPassword = '';
 			state.loginedEmail = '';
+			state.loginedUserId = '';
 			state.token = '';
 			state.errorMessage = '';
 
 			pSaveState();
-			store.dispatch();
-		})
-		.on('updateExpired', function(params) {
-			updateExpired();
 			store.dispatch();
 		});
 
@@ -51,17 +47,20 @@ importScripts('/Store/idbStorage.js', '/service/tl-Http/Http.js');
 		var inputEmail = state.inputEmail;
 
 		return Http
-			.pPostJSON('/login', {
-				'email': state.inputEmail,
+			.pPostJSON('/api/v1/auth', {
+				'username': state.inputUsername,
 				'password': state.inputPassword
 			})
 			.then(function(data) {
+				if (data.status !== Http.STATUS_OK) throw data;
+
 				state.isLoading = false;
 				state.isLogined = true;
-				state.inputEmail = '';
+				state.inputUsername = '';
 				state.inputPassword = '';
-				state.loginedEmail = inputEmail;
-				state.token = data.token;
+				state.loginedUsername = data.result.name;
+				state.loginedUserId = data.result.id;
+				state.token = data.result.token;
 				state.errorMessage = '';
 
 				updateExpired();
@@ -97,33 +96,38 @@ importScripts('/Store/idbStorage.js', '/service/tl-Http/Http.js');
 	function pLoadState() {
 		Promise.all([
 				idbStorage.getItem(LOCALSTORAGE_AUTH_TOKEN),
-				idbStorage.getItem(LOCALSTORAGE_AUTH_EMAIL),
-				idbStorage.getItem(LOCALSTORAGE_AUTH_EXPIRED)
+				idbStorage.getItem(LOCALSTORAGE_AUTH_USERNAME),
+				idbStorage.getItem(LOCALSTORAGE_AUTH_USERID)
 			])
 			.then(function(results) {
 				var token = results[0],
 					email = results[1],
 					expired = results[2];
 
-				if (!token || !email || !expired) {
-					state.loginedEmail = '';
-					state.token = '';
-					state.expired = null;
-					state.isLogined = false;
+				// if (!token || !email || !expired) {
+				// 	state.loginedUserId = '';
+				// 	state.loginedUsername = '';
+				// 	state.token = '';
+				// 	state.isLogined = false;
+				//
+				// } else if (expired < Date.now()) {
+				// 	state.loginedUserId = '';
+				// 	state.loginedUsername = '';
+				// 	state.token = '';
+				// 	state.isLogined = false;
+				// 	pSaveState();
+				//
+				// } else {
+				// 	state.loginedUserId = username;
+				// 	state.loginedUsername = '';
+				// 	state.token = token;
+				// 	state.isLogined = true;
+				// }
 
-				} else if (expired < Date.now()) {
-					state.loginedEmail = '';
-					state.token = '';
-					state.expired = null;
-					state.isLogined = false;
-					pSaveState();
-
-				} else {
-					state.loginedEmail = email;
-					state.token = token;
-					state.expired = expired;
-					state.isLogined = true;
-				}
+				state.loginedUserId = '00dummy00';
+				state.loginedUsername = '(dummy login)';
+				state.token = '01234567890';
+				state.isLogined = true;
 
 				store.dispatch();
 			});
@@ -132,20 +136,15 @@ importScripts('/Store/idbStorage.js', '/service/tl-Http/Http.js');
 	function pSaveState() {
 		if (state.isLogined) {
 			idbStorage.setItem(LOCALSTORAGE_AUTH_TOKEN, state.token);
-			idbStorage.setItem(LOCALSTORAGE_AUTH_EMAIL, state.loginedEmail);
-			idbStorage.setItem(LOCALSTORAGE_AUTH_EXPIRED, state.expired);
+			idbStorage.setItem(LOCALSTORAGE_AUTH_USERNAME, state.loginedUsername);
+			idbStorage.setItem(LOCALSTORAGE_AUTH_USERID, state.loginedUserId);
 
 		} else {
 			idbStorage.removeItem(LOCALSTORAGE_AUTH_TOKEN);
-			idbStorage.removeItem(LOCALSTORAGE_AUTH_EMAIL);
-			idbStorage.removeItem(LOCALSTORAGE_AUTH_EXPIRED);
+			idbStorage.removeItem(LOCALSTORAGE_AUTH_USERNAME);
+			idbStorage.removeItem(LOCALSTORAGE_AUTH_USERID);
 		}
 	}
-
-	function updateExpired() {
-		state.expired = Date.now() + EXPIRED_FROM_LAST_REQUEST;
-		pSaveState();
-	};
 
 	pLoadState();
 })();

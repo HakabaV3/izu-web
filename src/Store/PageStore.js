@@ -4,48 +4,48 @@
 			selected: 'login'
 		},
 		ROUTE_HOME = {
-			hash: '#/home',
-			selected: 'home'
+			hash: '^#/home$',
+			selected: 'home',
+			title: 'ホーム'
 		},
 		ROUTE_MAP = [
 			ROUTE_LOGIN,
 			ROUTE_HOME, {
-				hash: '#/report',
-				selected: 'report'
-			}, {
-				hash: '',
+				hash: '^#?/?$',
 				redirect: '#/home'
 			}, {
-				hash: '#/report/user/unique_user',
-				selected: 'uniqueUser'
+				hash: '^#/user/([^/*])$',
+				selected: 'user',
+				title: ''
 			}, {
-				hash: '#/report/user/unique_visitor',
-				selected: 'uniqueVisitor'
+				hash: '^#/photo/([^/*])$',
+				selected: 'photo',
+				title: ''
 			}, {
-				hash: '#/report/user/repeater',
-				selected: 'repeater'
+				hash: '^#/plan/([^/*])$',
+				selected: 'plan',
+				title: ''
 			}, {
-				hash: '#/report/action/daily_congestion_rate',
-				selected: 'dailyCongestionRate'
+				hash: '^#/photos$',
+				selected: 'photos',
+				title: '投稿した写真一覧'
 			}, {
-				hash: '#/report/action/traffic_rate',
-				selected: 'trafficRate'
-			}, {
-				hash: '#/report/action/moving_time',
-				selected: 'movingTime'
-			}, {
-				hash: '#/report/action/staying_time',
-				selected: 'stayingTime'
-			}, {
-				hash: '#/report/action/visit_count',
-				selected: 'visitCount'
+				hash: '^#/plans$',
+				selected: 'plans',
+				title: '投稿したプラン一覧'
 			}
 		];
+
+	ROUTE_MAP.forEach(function(route) {
+		route.hash = new RegExp(route.hash);
+	});
 
 	var store = new Store({
 			hash: null,
 			selected: null,
-			redirect: null
+			redirect: null,
+			title: null,
+			match: null
 		}),
 		state = store.state;
 
@@ -64,15 +64,19 @@
 	function resolveRoute(hash) {
 		state.hash = hash;
 
-		var route = findRouteByHash(hash);
-		if (route) {
-			if (route.redirect) {
+		var res = findRouteByHash(hash);
+
+		if (res) {
+			if (res.route.redirect) {
 				state.selected = null;
-				state.redirect = route.redirect;
+				state.redirect = res.route.redirect;
+				state.match = res.match;
 
 			} else {
-				state.selected = route.selected;
+				state.selected = res.route.selected;
 				state.redirect = null;
+				state.match = res.match;
+				state.title = res.route.title;
 			}
 
 		} else {
@@ -87,13 +91,13 @@
 	function checkIsLoginRequired() {
 		if (AuthStore.state.isLogined !== false && state.selected === ROUTE_LOGIN.selected) {
 			state.selected = null;
-			state.redirect = ROUTE_HOME.hash;
+			state.redirect = '#/home';
 			return true;
 		}
 
 		if (AuthStore.state.isLogined === false && state.selected !== ROUTE_LOGIN.selected) {
 			state.selected = null;
-			state.redirect = ROUTE_LOGIN.hash;
+			state.redirect = '#/login';
 			return true;
 		}
 
@@ -101,10 +105,16 @@
 	}
 
 	function findRouteByHash(hash) {
-		var i;
+		var i, ma;
 		for (i = 0; i < ROUTE_MAP.length; i++) {
-			if (ROUTE_MAP[i].hash === hash) return ROUTE_MAP[i];
+			if (ma = hash.match(ROUTE_MAP[i].hash)) {
+				return {
+					route: ROUTE_MAP[i],
+					match: ma
+				};
+			}
 		}
+
 		return null;
 	}
 })();
