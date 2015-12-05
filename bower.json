@@ -1,18 +1,18 @@
 {
-  "name": "izu-web",
-  "description": "",
-  "main": "index.js",
-  "authors": [
-    "Yuichiro Kikura <y.kikura@gmail.com>"
-  ],
-  "license": "ISC",
-  "homepage": "https://github.com/HakabaV3/izu-web",
-  "moduleType": [],
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+	"name": "izu-web",
+	"description": "izu web page",
+	"main": "index.js",
+	"authors": [
+		"Yuichiro Kikura <y.kikura@gmail.com>"
+	],
+	"license": "ISC",
+	"homepage": "https://github.com/HakabaV3/izu-web",
+	"moduleType": [],
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	]
 }
