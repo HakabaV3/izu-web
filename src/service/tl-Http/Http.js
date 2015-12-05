@@ -7,10 +7,10 @@
 		importScripts('/service/tl-Flux/Store.js');
 		Store.add('/Store/AuthStore.js');
 
-		var HEADER_KEY_ACCESSTOKEN = 'X-Kaonashi-Authorization';
+		var HEADER_KEY_ACCESSTOKEN = 'X-Session-Token';
 
 		self.Http = {
-			ENDPOINT: 'https://dev.kaonashi.io/api/v1',
+			ENDPOINT: 'http://izu.hakaba.xyz/api/v1',
 			HEADER_KEY_ACCESSTOKEN: HEADER_KEY_ACCESSTOKEN,
 
 			pGet: function(url, params) {
@@ -58,7 +58,6 @@
 					xhr.open(options.method, options.url);
 					xhr.onload = function() {
 						if (xhr.status === 200) {
-							Store.dispatchAction('updateExpired');
 							resolve(xhr.responseText);
 						} else {
 							reject(xhr);

@@ -31,7 +31,7 @@ Polymer({
 		} else if (state.selected) {
 			if (this.$.pager.selected !== state.selected) {
 				this.$.pager.selected = state.selected;
-				this.$.appBar.subName = state.selected;
+				this.$.appBar.subName = state.title;
 
 				this.$.sideNav.close();
 			}

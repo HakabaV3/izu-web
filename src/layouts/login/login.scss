@@ -139,11 +139,11 @@
 }
 #loader-outer
 {
-    fill: $md-blue-100;
+    fill: $md-primaryColor;
 }
 #loader-inner
 {
-    fill: $md-blue-700;
+    fill: $md-primaryColor;
 }
 #submit
 {
@@ -159,22 +159,22 @@
     transition: opacity .1s linear;
 
     opacity: 1;
-    color: $md-blue-700;
+    color: $md-primaryColor;
     border: none;
     border-radius: 2px;
     outline: none;
     background: none;
 
     will-change: opacity;
-    @include md-font-body1($md-blue-700);
+    @include md-font-body1($md-primaryColor);
 
     &:hover
     {
-        background: rgba($md-blue-100, .5);
+        background: rgba($md-primaryColor, .05);
     }
     &:active
     {
-        background: rgba($md-blue-100, 1);
+        background: rgba($md-primaryColor, .1);
     }
     &[disabled]
     {
