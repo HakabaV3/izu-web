@@ -1,0 +1,19 @@
+{
+  "name": "izu-web",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HakabaV3/izu-web.git"
+  },
+  "author": "Yuichiro Kikura <y.kikura@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HakabaV3/izu-web/issues"
+  },
+  "homepage": "https://github.com/HakabaV3/izu-web#readme"
+}
