@@ -1,0 +1,57 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<dom-module id="tl-photo-card">
+	<link rel="import" type="css" href="./tl-photo-card.css">
+	<template>
+		<img id="img" src="[[imageUrl]]" on-load="_onImageLoaded" on-error="_onImageLoaded">
+	</template>
+
+	<script>
+		/* global Polymer, kn */
+
+		'use strict';
+
+		Polymer({
+			is: 'tl-photo-card',
+			properties: {
+				data: {
+					type: Object,
+					value: (function() {
+						return {};
+					}),
+					observer: '_onDataChanged'
+				},
+				imageUrl: {
+					type: String,
+					readOnly: true
+				},
+				location: {
+					type: String,
+					readOnly: true
+				},
+				url: {
+					type: String,
+					readOnly: true
+				}
+			},
+			ready: function() {
+				this.data = {
+					'imageUrl': 'https://img.cpcdn.com/holiday_spot_images/158794/600x405c22_0_554_374_600/7f4a93b96ba8fe8b78395846d8094033.jpg'
+				};
+			},
+			_onDataChanged: function(newVal, oldVal) {
+				var val = newVal || {};
+
+				this._setImageUrl(val.imageUrl || '');
+				this.classList.add('is-image-loading');
+			},
+			_onImageLoaded: function() {
+				var naturalR = this.$.img.naturalHeight / this.$.img.naturalWidth;
+
+				this.style.height = naturalR * this.clientWidth + 'px';
+				this.classList.remove('is-image-loading');
+			}
+		});
+
+	</script>
+</dom-module>
