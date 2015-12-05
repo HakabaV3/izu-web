@@ -1,0 +1,54 @@
+@import '../../definitions/md-style.scss';
+
+:host
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    display: block;
+    overflow: hidden;
+
+    width: 100%;
+    height: 4px;
+
+    transition: .1s linear;
+    transform: scaleY(0);
+    transform-origin: top left;
+
+    background: $md-orange-100;
+
+    will-change: transform;
+    &[is-open]
+    {
+        transform: scaleY(1);
+    }
+}
+#inner
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 30vw;
+    height: 100%;
+
+    animation: indetermin 2.6s linear infinite;
+
+    background: $md-orange-700;
+
+    will-change: transform;
+}
+
+@keyframes indetermin
+{
+    0%
+    {
+        transform: translateX(-30vw);
+    }
+    100%
+    {
+        transform: translateX(100vw);
+    }
+}

@@ -1,0 +1,21 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/components/tl-Behaviors/tl-SelectorBehavior.html">
+<link rel="import" href="/components/tl-TopProgressBar/tl-TopProgressBar.html">
+
+<dom-module id="tl-Pager">
+	<template>
+		<style>
+			::content tl-page {
+				display: none;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+			}
+		</style>
+		<tl-TopProgressBar id="progressBar"></tl-TopProgressBar>
+		<content></content>
+	</template>
+	<script src="./tl-Pager.js"></script>
+</dom-module>

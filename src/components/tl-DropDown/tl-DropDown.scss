@@ -1,0 +1,22 @@
+@import '../../definitions/md-style.scss';
+
+:host
+{
+    position: relative;
+
+    display: block;
+
+    ::content tl-dropdownitem
+    {
+        transition: .2s $ease-slide;
+    }
+}
+
+::content tl-dropdownitem
+{
+    position: absolute;
+
+    width: 100%;
+
+    will-change: transform;
+}

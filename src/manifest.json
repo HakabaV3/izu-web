@@ -1,0 +1,9 @@
+{
+	"name": "RRadar Analytics",
+	"short_name": "RRadar",
+	"start_url": "/",
+	"display": "standalone",
+	"orientation": "portrait",
+	"theme_color": "#1976d2",
+	"background_color": "#1565c0"
+}

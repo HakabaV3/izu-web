@@ -1,27 +1,30 @@
 {
-  "name": "izu-web",
+  "name": "web-console",
   "version": "0.0.1",
-  "description": "izu web page",
-  "main": "index.js",
-  "scripts": {},
+  "description": "web console for air-radar",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HakabaV3/izu-web.git"
+    "url": "https://github.com/kaonashi-io/web-console.git"
   },
-  "author": "Yuichiro Kikura <y.kikura@gmail.com>",
-  "license": "ISC",
+  "author": [
+    {
+      "name": "Kikurage",
+      "email": "y.kikrua@gmail.com"
+    }
+  ],
   "bugs": {
-    "url": "https://github.com/HakabaV3/izu-web/issues"
+    "url": "https://github.com/kaonashi-io/web-console/issues"
   },
-  "homepage": "https://github.com/HakabaV3/izu-web#readme",
+  "homepage": "https://github.com/kaonashi-io/web-console",
   "devDependencies": {
+    "eslint": "^1.8.0",
     "event-stream": "^3.3.2",
     "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^3.1.0",
+    "gulp-autoprefixer": "^3.0.2",
     "gulp-clean": "^0.3.1",
     "gulp-connect": "^2.2.0",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.1.0",
+    "gulp-sass": "^2.0.4",
     "gulp-watch": "^4.3.5",
     "node-notifier": "^4.3.1",
     "run-sequence": "^1.1.5"

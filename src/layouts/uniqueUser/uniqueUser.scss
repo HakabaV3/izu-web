@@ -1,0 +1,50 @@
+@import '../../definitions/md-style.scss';
+
+@import '../index/stylus/Card.scss';
+@import '../index/stylus/Frame.scss';
+
+@import './stylus/Ranking.scss';
+
+:host
+{
+    @extend %Frame__base;
+
+    &.is-loading
+    {
+        .loadingMessage
+        {
+            opacity: 1;
+        }
+    }
+}
+#dateRangePicker
+{
+    margin-left: $md-w-gutter-1;
+}
+tl-incsearch
+{
+    margin-left: 16px;
+}
+
+tl-chart
+{
+    width: 100%;
+}
+
+.loadingMessage
+{
+    z-index: $md-z-overlay - 1;
+
+    display: inline-block;
+
+    padding: $md-w-gutter-1 $md-w-gutter-2;
+
+    transition: .2s linear;
+
+    opacity: 0;
+    color: $md-orange-600;
+    border-radius: 2px;
+    background: rgba($md-white, .8);
+
+    will-change: opacity;
+}

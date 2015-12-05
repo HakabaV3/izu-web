@@ -1,0 +1,57 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="./tl-OverlayBehavior.html">
+
+<dom-module name="tl-Dialog">
+	<link rel="import" type="css" href="./tl-Dialog.css">
+	<template>
+		<div class="card">
+			<header class="card__header">
+				<h3 class="card__title">[[title]]</h3>
+			</header>
+			<footer class="card__footer">
+				<content select="[action]"></content>
+			</footer>
+			<div class="card__body">
+				<content></content>
+			</div>
+		</div>
+	</template>
+
+	<script>
+		/* global Polymer, kn */
+
+		(function(kn) {
+			'use strict';
+
+			Polymer({
+				is: 'tl-Dialog',
+				properties: {
+					title: {
+						type: String
+					}
+				},
+				behaviors: [
+					kn.KNOverlayBehavior
+				],
+
+
+				startOpeningAnimation: function() {
+					this.classList.add('is-opening');
+					return 260;
+				},
+				endOpeningAnimation: function() {
+					this.classList.remove('is-opening');
+				},
+				startClosingAnimation: function() {
+					this.classList.add('is-closing');
+					return 350;
+				},
+				endClosingAnimation: function() {
+					this.classList.remove('is-closing');
+				}
+			});
+
+		})(self.kn || (self.kn = {}));
+
+	</script>
+</dom-module>

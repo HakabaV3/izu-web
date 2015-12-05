@@ -1,0 +1,102 @@
+w
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<dom-module id="tl-DropDownItem">
+	<link rel="import" type="css" href="./tl-DropDownItem.css">
+
+	<template>
+		<div id="header" on-click="toggle">
+			<content select="[dropdown-header]"></content>
+		</div>
+		<div id="body">
+			<content select="[dropdown-body]"></content>
+		</div>
+	</template>
+
+	<script>
+		(function() {
+			var DURATION_TRANSITION = 200;
+
+			Polymer({
+				is: 'tl-DropDownItem',
+				properties: {
+					isOpen: {
+						type: Boolean,
+						reflectToAttribute: true,
+						observer: 'onIsOpenChanged'
+					},
+					height: {
+						type: Number,
+						readOnly: true
+					},
+					headerHeight: {
+						type: Number,
+						readOnly: true
+					},
+					bodyHeight: {
+						type: Number,
+						readOnly: true
+					},
+				},
+				_transitionTimerID: null,
+
+				attached: function() {
+					this.update();
+				},
+
+				_computeHeight: function() {
+					return this.headerHeight + (this.isOpen ? this.bodyHeight : 0);
+				},
+				_computeHeaderHeight: function() {
+					return this.$.header.getBoundingClientRect().height;
+				},
+				_computeBodyHeight: function() {
+					return this.$.body.getBoundingClientRect().height;
+				},
+
+				open: function() {
+					this.isOpen = true;
+				},
+				close: function() {
+					this.isOpen = false;
+				},
+				toggle: function() {
+					return this.isOpen ? this.close() : this.open();
+				},
+
+				onIsOpenChanged: function() {
+					this.async(function() {
+						this.update();
+						this.doTransition();
+					});
+				},
+
+				update: function() {
+					this._setHeaderHeight(this._computeHeaderHeight());
+					this._setBodyHeight(this._computeBodyHeight());
+					this._setHeight(this._computeHeight());
+					this.$.body.style.top = this.headerHeight + 'px';
+					this.style.height = this.height + 'px';
+				},
+				doTransition: function() {
+					if (this.isOpen) {
+						this.classList.add('is-opening');
+					} else {
+						this.classList.add('is-closing');
+					}
+
+					if (this._transitionTimerID) {
+						clearTimeout(this._transitionTimerID);
+						this._transitionTimerID = null;
+					}
+
+					this._transitionTimerID = setTimeout(function() {
+						this.classList.remove('is-opening');
+						this.classList.remove('is-closing');
+					}.bind(this), DURATION_TRANSITION);
+				}
+			})
+		})();
+
+	</script>
+</dom-module>

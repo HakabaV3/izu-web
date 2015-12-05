@@ -1,0 +1,89 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="./tl-OverlayBehavior.html">
+
+<dom-module name="tl-PopupMenu">
+	<link rel="import" type="css" href="./tl-PopupMenu.css">
+	<template>
+		<ul id="card">
+			<content select="li"></content>
+		</ul>
+	</template>
+
+	<script>
+		/* global Polymer, kn */
+
+		(function(kn) {
+			'use strict';
+
+			Polymer({
+				is: 'tl-PopupMenu',
+				properties: {
+					title: {
+						type: String
+					}
+				},
+				behaviors: [
+					kn.KNOverlayBehavior
+				],
+
+
+				open: function(targetNode) {
+					this.adjustPosition(targetNode);
+					kn.KNOverlayBehaviorImpl.open.apply(this);
+				},
+
+
+				adjustPosition: function(targetNode) {
+					var gcr = targetNode.getBoundingClientRect(),
+						left = Math.max(gcr.left, 32),
+						top = Math.max(gcr.top + gcr.height, 32),
+						right = Math.max(window.innerWidth - gcr.right, 32),
+						bottom = Math.max(window.innerHeight - gcr.bottom + gcr.height, 32),
+						transformOrigin = [],
+						cardStyle = this.$.card.style;
+
+					if (left > right) {
+						transformOrigin.push('right');
+						cardStyle.left = ''
+						cardStyle.right = right + 'px';
+					} else {
+						transformOrigin.push('left');
+						cardStyle.left = left + 'px'
+						cardStyle.right = '';
+					}
+
+					if (top > bottom) {
+						transformOrigin.push('bottom');
+						cardStyle.top = ''
+						cardStyle.bottom = bottom + 'px';
+					} else {
+						transformOrigin.push('top');
+						cardStyle.top = top + 'px'
+						cardStyle.bottom = '';
+					}
+
+					cardStyle.webkitTransformOrigin =
+						cardStyle.transformOrigin = transformOrigin.join(' ');
+				},
+
+
+				startOpeningAnimation: function() {
+					this.classList.add('is-opening');
+					return 260;
+				},
+				endOpeningAnimation: function() {
+					this.classList.remove('is-opening');
+				},
+				startClosingAnimation: function() {
+					this.classList.add('is-closing');
+					return 350;
+				},
+				endClosingAnimation: function() {
+					this.classList.remove('is-closing');
+				}
+			});
+
+		})(self.kn || (self.kn = {}));
+
+	</script>
+</dom-module>

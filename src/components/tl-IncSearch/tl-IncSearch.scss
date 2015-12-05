@@ -1,0 +1,149 @@
+@import '../../definitions/md-style.scss';
+@import './Chip.scss';
+@import './Candidate.scss';
+
+:host
+{
+    position: relative;
+
+    display: inline-block;
+
+    width: 400px;
+    height: 43px;
+
+    outline: none;
+
+    &[block]
+    {
+        display: block;
+
+        width: auto;
+    }
+}
+#overlayBase
+{
+    position: absolute;
+
+    display: block;
+
+    @include md-elevation-card();
+}
+
+#dummyInput,
+#tagInput
+{
+    position: relative;
+
+    display: block;
+}
+#card
+{
+    position: relative;
+
+    overflow: hidden;
+    flex-direction: column;
+
+    width: 100%;
+    height: 0;
+
+    border-radius: 2px;
+    background: $md-white;
+
+    will-change: height;
+
+    &.is-opening
+    {
+        animation: IncSearch-open-card .4s $ease-slide forwards;
+
+        .Candidates
+        {
+            animation: IncSearch-open-Candidates .4s $ease-slide forwards;
+
+            opacity: 0;
+        }
+    }
+    &.is-closing
+    {
+        animation: IncSearch-close-card .4s $ease-slide forwards;
+
+        .Candidates
+        {
+            animation: IncSearch-close-Candidates .4s $ease-slide forwards;
+        }
+    }
+}
+#overlay
+{
+    &[is-open]
+    {
+        #card
+        {
+            height: 200px;
+        }
+        .Candidates
+        {
+            opacity: 1;
+        }
+    }
+}
+
+@keyframes IncSearch-open-card
+{
+    0%
+    {
+        height: 0;
+    }
+    60%
+    {
+        height: 200px;
+    }
+    100%
+    {
+        height: 200px;
+    }
+}
+@keyframes IncSearch-close-card
+{
+    0%
+    {
+        height: 200px;
+    }
+    40%
+    {
+        height: 200px;
+    }
+    100%
+    {
+        height: 0;
+    }
+}
+@keyframes IncSearch-open-Candidates
+{
+    0%
+    {
+        opacity: 0;
+    }
+    40%
+    {
+        opacity: 0;
+    }
+    100%
+    {
+        opacity: 1;
+    }
+}
+@keyframes IncSearch-close-Candidates
+{
+    0%
+    {
+        opacity: 1;
+    }
+    60%
+    {
+        opacity: 0;
+    }
+    100%
+    {
+        opacity: 0;
+    }
+}

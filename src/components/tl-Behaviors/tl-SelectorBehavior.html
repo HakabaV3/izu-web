@@ -1,0 +1,61 @@
+<script>
+	/**
+	 * When you use this, these methods must be overriden.
+	 *
+	 * - getItemAtIndex(selected)
+	 * - getItems()
+	 */
+	(function(kn) {
+		var KNSelectorBehavior = {
+			properties: {
+				selected: {
+					type: String,
+					reflectToAttribute: true,
+					observer: '_onSelectedChanged'
+				}
+			},
+			getItems: function() {
+				return this.children;
+			},
+			getItemAtIndex: function(index) {
+				var items = this.getItems(),
+					item = items[parseInt(index)],
+					i;
+
+				if (item) return item;
+
+				for (i = 0; i < items.length; i++) {
+					if (items[i].getAttribute('name') === index) return items[i];
+				}
+
+				return null;
+			},
+			_onSelectedChanged: function(newVal, oldVal) {
+				this.async(this._updateItem.bind(this, newVal, oldVal));
+			},
+			_updateItem: function(newVal, oldVal) {
+				var oldItem = this.getItemAtIndex(oldVal),
+					newItem = this.getItemAtIndex(newVal);
+
+				if (oldItem) {
+					oldItem.selected = false;
+					oldItem.fire('unselect');
+				}
+
+				if (newItem) {
+					newItem.selected = true;
+					newItem.fire('select');
+				}
+
+				this.fire('change', {
+					newVal: newItem,
+					oldVal: oldItem
+				});
+			}
+		};
+
+		kn.KNSelectorBehavior = KNSelectorBehavior;
+
+	})(self.kn || (self.kn = {}));
+
+</script>

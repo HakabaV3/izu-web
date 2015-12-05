@@ -1,0 +1,206 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/components/tl-Overlay/tl-Dialog.html">
+<link rel="import" href="/components/tl-Behaviors/tl-SelectorBehavior.html">
+<link rel="import" href="/components/tl-i18n/tl-i18n.html">
+
+<dom-module id="tl-Radios-overlay">
+	<link rel="import" type="css" href="./tl-Radios.css">
+	<template>
+		<tl-Dialog id="overlay" on-closestart="_onOverlayCloseStart" title="[[title]]">
+			<ul class="list">
+				<template is="dom-repeat" items="[[items]]">
+					<label on-click="_onItemClick">
+						<span class="radio" selected$="[[item.selected]]"></span>
+						<span class="text">[[item.text]]</span>
+					</label>
+				</template>
+			</ul>
+
+			<paper-button action noink on-click="close">
+				<tl-i18n id="action.select"></tl-i18n>
+			</paper-button>
+			<paper-button action noink on-click="close">
+				<tl-i18n id="action.cancel"></tl-i18n>
+			</paper-button>
+		</tl-Dialog>
+	</template>
+	<script>
+		Polymer({
+			is: 'tl-Radios-overlay',
+			properties: {
+				selected: {
+					type: Number,
+					value: -1
+				},
+				title: {
+					type: String,
+				},
+				items: {
+					type: Array,
+					value: function() {
+						return [];
+					}
+				}
+			},
+			_mainNode: null,
+
+
+			open: function($mainNode) {
+				this._mainNode = $mainNode;
+				this.update();
+				this.$.overlay.open();
+			},
+			close: function() {
+				this.$.overlay.close();
+			},
+
+
+			_onItemClick: function(ev) {
+				this.select(ev.model.index);
+			},
+			_onOverlayCloseStart: function() {
+				this._mainNode.selected = this.selected;
+			},
+
+			select: function(newVal) {
+				var oldVal = this.selected;
+
+				if (newVal === oldVal) return;
+
+				if (oldVal !== -1) {
+					this.set('items.' + oldVal + '.selected', false);
+				}
+
+				if (newVal !== -1) {
+					this.set('items.' + newVal + '.selected', true);
+				}
+
+				this.selected = newVal;
+			},
+
+
+			update: function() {
+				var $main = this._mainNode;
+				this.title = $main.title;
+
+				var selectedItem = $main.getItemAtIndex($main.selected),
+					selected = -1,
+					items = $main.getItems().map(function(item, i) {
+						if (item === selectedItem) {
+							selected = i;
+						}
+
+						return {
+							selected: item === selectedItem,
+							text: item.innerText.trim()
+						};
+					});
+
+				this.set('selected', selected);
+				this.set('items', items);
+			}
+		});
+
+	</script>
+</dom-module>
+
+<dom-module id="tl-Radios">
+	<link rel="import" type="css" href="./tl-Radios.css">
+	<template>
+		<div id="normal">
+			<content id="content"></content>
+		</div>
+		<paper-button id="mobile" noink>[[_computeSelectedItemText(selected)]]</paper-button>
+	</template>
+	<script>
+		(function() {
+			/* global Polymer, kn */
+
+			'use strict';
+
+			var overlay = null;
+
+			function initOverlay() {
+				overlay = document.createElement('tl-Radios-overlay');
+				document.body.appendChild(overlay);
+			}
+
+			Polymer({
+				is: 'tl-Radios',
+				proeprties: {
+					title: {
+						type: String,
+						reflectToAttribute: true,
+						value: '選択してください'
+					}
+				},
+				behaviors: [kn.KNSelectorBehavior],
+				listeners: {
+					'click': '_onClick'
+				},
+				ready: function() {
+					if (!overlay) {
+						initOverlay();
+					}
+				},
+
+				_computeSelectedItemText: function(selected) {
+					var $item = this.getItemAtIndex(selected);
+					return $item ? $item.innerText : '';
+				},
+
+
+				_onClick: function(ev) {
+					if (this.$.mobile.contains(ev.target)) {
+						this.openOverlay();
+
+					} else {
+						var $clicked = detectClickedItem(ev, this.$.normal);
+						if (!$clicked) return;
+
+						var name = $clicked.getAttribute('name');
+						this.selected = name || Array.prototype.indexOf.call(this.getItems(), $clicked);
+					}
+				},
+
+
+				openOverlay: function() {
+					overlay.open(this);
+				},
+
+				//@Override KNSelectorBehavior.getItems()
+				getItems: function() {
+					var items = Polymer.dom(this.$.content)
+						.getDistributedNodes()
+						.filter(function(dom) {
+							return dom instanceof HTMLElement;
+						});
+
+					items.forEach(function(item) {
+						var name = item.getAttribute('name');
+						if (!name) return;
+
+						items[name] = item;
+					});
+
+					return items;
+				}
+			});
+
+			function detectClickedItem(ev, base) {
+				var path = ev.path,
+					i;
+
+				for (i = 0; i < path.length; i++) {
+					if (path[i] === base) {
+						return path[i - 1];
+					}
+				}
+
+				return null;
+			}
+		})();
+
+	</script>
+</dom-module>

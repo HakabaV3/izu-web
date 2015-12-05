@@ -1,0 +1,127 @@
+@import '../../definitions/md-style.scss';
+
+$foreground: $md-primaryTextColor;
+$background: $md-primaryColor;
+
+:host
+{
+    position: relative;
+    z-index: $md-z-appBar;
+
+    display: flex;
+    flex-direction: horizontal;
+
+    color: $foreground;
+    background: $background;
+    box-shadow: $md-shadow-card;
+
+    align-items: center;
+    justify-content: center;
+
+    &.is-animation
+    {
+        .currentSubName
+        {
+            transition: .2s 0s $ease-slide;
+
+            opacity: 0;
+        }
+        .nextSubName
+        {
+            transition: .2s .2s $ease-slide;
+
+            opacity: 1;
+        }
+    }
+}
+
+@mixin container()
+{
+    display: flex;
+    flex-direction: horizontal;
+
+    box-sizing: border-box;
+    height: $md-h-appBar;
+
+    align-items: center;
+
+    &::content
+    {
+        paper-button
+        {
+            width: 48px;
+            min-width: 0;
+            height: 48px;
+
+            border-radius: 50%;
+        }
+    }
+}
+.LeftContainer
+{
+    box-sizing: border-box;
+    width: $md-w-appBar-padding-title;
+
+    justify-content: flex-start;
+    @include container();
+}
+.appName
+{
+    font-size: $md-fontsize-title;
+    font-weight: $md-fontweight-title;
+    line-height: $md-h-appBar;
+
+    margin: 0;
+
+    text-decoration: none;
+
+    color: $foreground;
+
+    @media #{$md-query-mobile}
+    {
+        display: none;
+    }
+}
+.nextIcon
+{
+    @media #{$md-query-mobile}
+    {
+        display: none;
+    }
+}
+.subNameContainer
+{
+    position: relative;
+
+    display: inline-block;
+
+    height: $md-h-appBar;
+
+    flex: 1;
+}
+.currentSubName,
+.nextSubName
+{
+    font-size: $md-fontsize-title;
+    font-weight: $md-fontweight-title;
+    line-height: $md-h-appBar;
+
+    position: absolute;
+
+    margin: 0;
+
+    color: $foreground;
+}
+.currentSubName
+{
+    opacity: 1;
+}
+.nextSubName
+{
+    opacity: 0;
+}
+.RightContainer
+{
+    justify-content: flex-end;
+    @include container();
+}

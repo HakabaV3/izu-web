@@ -1,0 +1,42 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="./tl-OverlayBehavior.html">
+
+<dom-module name="tl-Overlay">
+	<template>
+		<style>
+			:host {
+				position: fixed;
+				top: 0;
+				left: 0;
+				padding: 0;
+				margin: 0;
+				width: 100%;
+				height: 100%;
+				display: none;
+			}
+			
+			:host([is-open]) {
+				display: block;
+			}
+
+		</style>
+		<content></content>
+	</template>
+
+	<script>
+		/* global Polymer, kn */
+
+		(function(kn) {
+			'use strict';
+
+			Polymer({
+				is: 'tl-Overlay',
+				behaviors: [
+					kn.KNOverlayBehavior
+				]
+			});
+
+		})(self.kn || (self.kn = {}));
+
+	</script>
+</dom-module>

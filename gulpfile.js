@@ -96,14 +96,14 @@ gulp.task('watch.html', ['build.html'], function() {
 gulp.task('build.js', function() {
 	return copy([
 		'./src/*.js',
-		'./src/**/*.js',
-	], './build/')
+		'./src/**/*.js'
+	], './build/');
 });
 
 gulp.task('watch.js', ['build.js'], function() {
 	watch([
 		'./src/*.js',
-		'./src/**/*.js',
+		'./src/**/*.js'
 	], function(ev) {
 		var resolved = resolvePath(ev.path);
 
@@ -115,19 +115,14 @@ gulp.task('build.static', function(done) {
 	return merge([
 		copy('./bower_components/**/*', './build/bower_components'),
 		copy('./src/*.json', './build/'),
-		copy('./src/**/*.json', './build/'),
-		copy('./src/assets/*.*', './build/assets/'),
-		copy('./src/assets/**/*.*', './build/assets/'),
+		copy('./src/lang/*.json', './build/lang')
 	]);
 });
 
 gulp.task('watch.static', ['build.static'], function() {
 	watch([
 		'./bower_components/**/*',
-		'./src/*.json',
-		'./src/**/*.json',
-		'./src/assets/*.*',
-		'./src/assets/**/*.*'
+		'./src/lang/*'
 	], function(ev) {
 		var resolved = resolvePath(ev.path);
 		return copy(resolved.src, resolved.destDir);

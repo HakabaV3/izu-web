@@ -1,0 +1,82 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+
+<dom-module id="tl-AppBar">
+	<link rel="import" type="css" href="./tl-AppBar.css">
+	<template>
+		<div class="LeftContainer">
+			<content select="[left]"></content>
+		</div>
+		<a class="appName" href="[[hrefHome]]">[[appName]]</a>
+		<iron-icon class="nextIcon" icon="chevron-right"></iron-icon>
+		<div class="subNameContainer">
+			<h2 class="currentSubName">[[currentSubName]]</h2>
+			<h2 class="nextSubName">[[nextSubName]]</h2>
+		</div>
+		<div class="RightContainer">
+			<content select="[right]"></content>
+		</div>
+	</template>
+	<script>
+		(function() {
+			/* global Polymer */
+
+			'use strict';
+
+			Polymer({
+				is: 'tl-AppBar',
+				properties: {
+					hrefHome: {
+						type: String,
+						reflectToAttribute: true
+					},
+					appName: {
+						type: String,
+						reflectToAttribute: true
+					},
+					subName: {
+						type: String,
+						reflectToAttribute: true,
+						observer: '_onSubNameChange'
+					},
+					currentSubName: {
+						type: String,
+						readOnly: true
+					},
+					nextSubName: {
+						type: String,
+						readOnly: true
+					}
+				},
+				_transitionTimerId: null,
+				ready: function() {
+					this.animationEnd = this.animationEnd.bind(this);
+				},
+
+				_onSubNameChange: function(newVal, oldVal) {
+					this._setNextSubName(newVal);
+					this._setCurrentSubName(oldVal);
+					this.animationStart();
+				},
+
+				animationStart: function() {
+					if (this._transitionTimerId) {
+						clearTimeout(this._transitionTimerId);
+					}
+
+					this.classList.add('is-animation');
+					this._transitionTimerId = setTimeout(this.animationEnd.bind(this), 410);
+				},
+				animationEnd: function() {
+					this._tranisitionTimerId = null;
+					this.classList.remove('is-animation');
+
+					this._setCurrentSubName(this.nextSubName);
+					this._setNextSubName('');
+				}
+			});
+		})();
+
+	</script>
+</dom-module>
