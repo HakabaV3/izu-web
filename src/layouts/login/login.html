@@ -1,7 +1,6 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/components/tl-Input/tl-Input.html">
-<link rel="import" href="/components/tl-i18n/tl-i18n.html">
 <link rel="import" href="/service/tl-Flux/tl-Flux.html">
 
 <dom-module name="tl-login-layout">
@@ -11,7 +10,7 @@
 		<div id="base">
 			<form id="loginBox" on-submit="onSubmit" method="/" action="POST">
 				<h1 id="title">
-					<tl-i18n id="global.application.fullname"></tl-i18n>
+					旅ログ
 				</h1>
 				<p id="error">{{errorMessage}}</p>
 				<p>

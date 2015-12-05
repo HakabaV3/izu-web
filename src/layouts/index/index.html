@@ -6,10 +6,8 @@
 <link rel="import" href="/components/tl-Pager/tl-Pager.html">
 <link rel="import" href="/components/tl-Page/tl-Page.html">
 <link rel="import" href="/components/tl-AccountBox/tl-AccountBox.html">
-<link rel="import" href="/components/tl-i18n/tl-i18n.html">
 <link rel="import" href="/components/tl-DropDown/tl-DropDown.html">
 <link rel="import" href="/components/tl-SideNav/tl-SideNav.html">
-<link rel="import" href="/service/tl-animation/tl-animation.html">
 <link rel="import" href="/service/tl-Flux/tl-Flux.html">
 
 <dom-module id="tl-index-layout">
@@ -27,67 +25,21 @@
 
 			<div side class="Menu">
 				<header class="Menu__header" on-click="toggleSideNav">
-					<h2 class="Menu__title">Data &amp; Analytics</h2>
+					<h2 class="Menu__title">メニュー</h2>
 				</header>
 				<tl-dropdown class="Menu__body">
-					<tl-dropdownItem class="Menu__section" id="userDropMenu">
+					<tl-dropdownItem class="Menu__section">
 						<header dropdown-header class="Menu__sectionTitle">
 							<iron-icon class="Menu__sectionTitle-icon" icon="trending-up"></iron-icon>
 							<span class="Menu__sectionTitle-text">
-								<tl-i18n id="report.category.user.name"></tl-i18n>
+								メニュー
 							</span>
 							<iron-icon class="Menu__sectionTitle-icon" icon="arrow-drop-down"></iron-icon>
 						</header>
 						<ul dropdown-body class="Menu__items">
-							<li class="Menu__item" data-sidemenu-item-id="uniqueUser">
-								<a href="#/report/user/unique_user">
-									<tl-i18n id="uniqueuser.name"></tl-i18n>
-								</a>
-							</li>
-							<li class="Menu__item Menu__disabled" data-sidemenu-item-id="uniqueVisitor">
-								<a href="#/report/user/unique_visitor">
-									<tl-i18n id="uniquevisitor.name"></tl-i18n>
-								</a>
-							</li>
-							<li class="Menu__item Menu__disabled" data-sidemenu-item-id="repeater">
-								<a href="#/report/user/repeater">
-									<tl-i18n id="repeater.name"></tl-i18n>
-								</a>
-							</li>
-						</ul>
-					</tl-dropdownItem>
-					<tl-dropdownItem class="Menu__section" id="actionDropMenu">
-						<header dropdown-header class="Menu__sectionTitle">
-							<iron-icon class="Menu__sectionTitle-icon" icon="visibility"></iron-icon>
-							<span class="Menu__sectionTitle-text">
-								<tl-i18n id="report.category.action.name"></tl-i18n>
-							</span>
-							<iron-icon class="Menu__sectionTitle-icon" icon="arrow-drop-down"></iron-icon>
-						</header>
-						<ul dropdown-body class="Menu__items">
-							<li class="Menu__item Menu__disabled" data-sidemenu-item-id="dailyCongestionRate">
-								<a href="#/report/action/daily_congestion_rate">
-									<tl-i18n id="dailycongestionrate.name"></tl-i18n>
-								</a>
-							</li>
-							<li class="Menu__item Menu__disabled" data-sidemenu-item-id="trafficRate">
-								<a href="#/report/action/traffic_rate">
-									<tl-i18n id="trafficrate.name"></tl-i18n>
-								</a>
-							</li>
-							<li class="Menu__item Menu__disabled" data-sidemenu-item-id="movingTime">
-								<a href="#/report/action/moving_time">
-									<tl-i18n id="movingtime.name"></tl-i18n>
-								</a>
-							</li>
-							<li class="Menu__item" data-sidemenu-item-id="stayingTime">
-								<a href="#/report/action/staying_time">
-									<tl-i18n id="stayingtime.name"></tl-i18n>
-								</a>
-							</li>
-							<li class="Menu__item Menu__disabled" data-sidemenu-item-id="visitCount">
-								<a href="#/report/action/visit_count">
-									<tl-i18n id="visitcount.name"></tl-i18n>
+							<li class="Menu__item">
+								<a>
+									ホーム
 								</a>
 							</li>
 						</ul>
@@ -100,14 +52,6 @@
 					<tl-pager id="pager">
 						<tl-page name="login" href="/layouts/login/login.html" entry-tag="tl-login-layout"></tl-page>
 						<tl-page name="home" href="/layouts/home/home.html" entry-tag="tl-home-layout"></tl-page>
-						<tl-page name="uniqueUser" href="/layouts/uniqueUser/uniqueUser.html" entry-tag="tl-uniqueUser-layout"></tl-page>
-						<tl-page name="uniqueVisitor" href="/layouts/uniqueVisitor/uniqueVisitor.html" entry-tag="tl-uniqueVisitor-layout"></tl-page>
-						<tl-page name="repeater" href="/layouts/repeater/repeater.html" entry-tag="tl-repeater-layout"></tl-page>
-						<tl-page name="dailyCongestionRate" href="/layouts/dailyCongestionRate/dailyCongestionRate.html" entry-tag="tl-dailyCongestionRate-layout"></tl-page>
-						<tl-page name="trafficRate" href="/layouts/trafficRate/trafficRate.html" entry-tag="tl-trafficRate-layout"></tl-page>
-						<tl-page name="movingTime" href="/layouts/movingTime/movingTime.html" entry-tag="tl-movingTime-layout"></tl-page>
-						<tl-page name="stayingTime" href="/layouts/stayingTime/stayingTime.html" entry-tag="tl-stayingTime-layout"></tl-page>
-						<tl-page name="visitCount" href="/layouts/visitCount/visitCount.html" entry-tag="tl-visitCount-layout"></tl-page>
 					</tl-pager>
 				</div>
 			</div>

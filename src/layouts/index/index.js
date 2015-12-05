@@ -5,8 +5,6 @@
 Polymer({
 	is: 'tl-index-layout',
 	ready: function() {
-		this.$.appBar.appName = kn.i18n.getText('global.application.fullname');
-
 		Flux.addStore('/Store/AuthStore.js', this.onUpdateAuthStore.bind(this));
 		Flux.addStore('/Store/PageStore.js', this.onUpdatePageStore.bind(this));
 
@@ -19,6 +17,7 @@ Polymer({
 		if (state.isLogined) {
 			this.$.sideNavToggler.style.display = '';
 			this.$.sideNav.locked = false;
+
 		} else {
 			this.$.sideNavToggler.style.display = 'none';
 			this.$.sideNav.locked = true;
