@@ -1,0 +1,10 @@
+@import '../../definitions/md-style.scss';
+
+@import '../index/stylus/Card.scss';
+@import '../index/stylus/Frame.scss';
+
+
+:host
+{
+    @extend %Frame__base;
+}

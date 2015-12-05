@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>tl-Pager</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<script src="/bower_components/webcomponentsjs/webcomponents.js"></script>
+	<link rel="import" href="/components/tl-photo-card/tl-photo-card.html">
+	<style>
+		html,
+		body {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+		}
+
+	</style>
+</head>
+
+<body>
+	<tl-photo-card></tl-photo-card>
+
+	<script>
+		window.addEventListener('click', function() {
+			document.querySelector('tl-photo-card').data = {
+				'imageUrl': 'https://img.cpcdn.com/holiday_spot_images/158794/600x405c22_0_554_374_600/7f4a93b96ba8fe8b78395846d8094033.jpg',
+				'location': 'Hofburg , 1010 Wien',
+				'url': 'http://www.hofburg-wien.at'
+			};
+		})
+
+	</script>
+</body>
+
+</html>

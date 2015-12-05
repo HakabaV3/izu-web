@@ -1,0 +1,32 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<dom-module id="tl-top-progress-bar">
+	<link rel="import" type="css" href="./tl-top-progress-bar.css">
+	<template>
+		<div id="inner"></div>
+	</template>
+	<script>
+		/* global Polymer, kn */
+		'use strict';
+		Polymer({
+			is: 'tl-top-progress-bar',
+			properties: {
+				isOpen: {
+					type: Boolean,
+					value: false,
+					reflectToAttribute: true
+				}
+			},
+			open: function() {
+				this.isOpen = true;
+			},
+			close: function() {
+				this.isOpen = false;
+			},
+			toggle: function() {
+				this.isOpen = !this.isOpen;
+			},
+		});
+
+	</script>
+</dom-module>
