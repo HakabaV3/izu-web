@@ -1,9 +1,0 @@
-{
-	"name": "旅ログ",
-	"short_name": "旅ログ",
-	"start_url": "/",
-	"display": "standalone",
-	"orientation": "portrait",
-	"theme_color": "#f57c00",
-	"background_color": "#f57c00"
-}

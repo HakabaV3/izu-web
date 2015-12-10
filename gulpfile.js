@@ -1,16 +1,21 @@
 'use strict';
 
-var merge = require('event-stream').merge,
+var gulp = require('gulp'),
+	merge = require('event-stream').merge,
 	runSequence = require('run-sequence'),
-	gulp = require('gulp'),
-	autoprefixer = require('gulp-autoprefixer'),
-	connect = require('gulp-connect'),
+	path = require('path'),
 	rename = require('gulp-rename'),
-	sass = require('gulp-sass'),
+	notifier = require('node-notifier'),
 	watch = require('gulp-watch'),
 	clean = require('gulp-clean'),
-	notifier = require('node-notifier'),
-	path = require('path');
+	autoprefixer = require('gulp-autoprefixer'),
+	sass = require('gulp-sass'),
+	source = require('vinyl-source-stream'),
+	buffer = require('vinyl-buffer'),
+	through = require('through2'),
+	browserify = require('browserify'),
+	babelify = require('babelify'),
+	connect = require('gulp-connect');
 
 function errorHandler(title) {
 	return function(err) {
@@ -77,14 +82,14 @@ gulp.task('watch.sass', ['build.sass'], function() {
 
 gulp.task('build.html', function() {
 	return copy([
-		'./src/*.html',
+		// './src/*.html',
 		'./src/**/*.html'
 	], './build/');
 });
 
 gulp.task('watch.html', ['build.html'], function() {
 	watch([
-		'./src/*.html',
+		// './src/*.html',
 		'./src/**/*.html'
 	], function(ev) {
 		var resolved = resolvePath(ev.path);
@@ -93,36 +98,46 @@ gulp.task('watch.html', ['build.html'], function() {
 	});
 });
 
-gulp.task('build.js', function() {
-	return copy([
-		'./src/*.js',
-		'./src/**/*.js'
-	], './build/');
+gulp.task('build.jsx', function() {
+	var bundledStream = through();
+
+	browserify('src/index.jsx', {
+			debug: true,
+		})
+		.transform(babelify, {
+			presets: ['react']
+		})
+		.on('error', errorHandler('JSX compile failed'))
+		.bundle().pipe(bundledStream);
+
+	bundledStream
+		.pipe(source('index.js'))
+		.pipe(buffer())
+		.pipe(gulp.dest('build/'));
+
+	return bundledStream;
 });
 
-gulp.task('watch.js', ['build.js'], function() {
+gulp.task('watch.jsx', ['build.jsx'], function() {
 	watch([
-		'./src/*.js',
-		'./src/**/*.js'
+		'./src/*.jsx',
+		'./src/**/*.jsx'
 	], function(ev) {
-		var resolved = resolvePath(ev.path);
-
-		return copy(resolved.src, resolved.destDir);
+		return gulp.start('build.jsx');
 	});
 });
 
 gulp.task('build.static', function(done) {
 	return merge([
 		copy('./bower_components/**/*', './build/bower_components'),
-		copy('./src/*.json', './build/'),
-		copy('./src/lang/*.json', './build/lang')
+		copy('./src/*.{jpg,js,json}', './build/')
 	]);
 });
 
 gulp.task('watch.static', ['build.static'], function() {
 	watch([
 		'./bower_components/**/*',
-		'./src/lang/*'
+		'./src/*.{jpg,js,json}'
 	], function(ev) {
 		var resolved = resolvePath(ev.path);
 		return copy(resolved.src, resolved.destDir);
@@ -146,7 +161,7 @@ gulp.task('server', function() {
 
 gulp.task('default', function(done) {
 	return runSequence('clean', [
-		'watch.js',
+		'watch.jsx',
 		'watch.sass',
 		'watch.html',
 		'watch.static'
@@ -155,7 +170,7 @@ gulp.task('default', function(done) {
 
 gulp.task('build', function(done) {
 	return runSequence('clean', [
-		'build.js',
+		'build.jsx',
 		'build.sass',
 		'build.html',
 		'build.static'
