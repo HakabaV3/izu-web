@@ -1,5 +1,6 @@
 import Store from './Store';
 import API from '../service/API';
+import APIState from './structure/APIState';
 
 export default class AuthStore extends Store {
     constructor() {
@@ -8,20 +9,21 @@ export default class AuthStore extends Store {
             isAuthorized: false,
             authorizedName: '',
             token: '',
-            isSignInFetching: false,
-            lastSignInError: null,
-            lastSignInErrorMessage: '',
-            isSignUpFetching: false,
-            lastSignUpError: null,
-            lastSignUpErrorMessage: ''
+            signInState: APIState(),
+            signUpState: APIState()
         }
     }
 
+    /**
+     * サインインする
+     * @param  {string} name name
+     * @param  {string} password password
+     */
     signIn(name, password) {
         this.update({
-            isSignInFetching: true,
-            lastSignInError: null,
-            lastSignInErrorMessage: ''
+            signInState: APIState({
+                isActive: true
+            })
         });
 
         API.pPost('/auth', {
@@ -34,32 +36,36 @@ export default class AuthStore extends Store {
                     isAuthorized: true,
                     authorizedName: data.result.user.name,
                     token: data.result.user.token,
-                    isSignInFetching: false,
-                    lastSignInError: null,
-                    lastSignInErrorMessage: ''
+                    signInState: APIState()
                 });
             } else {
                 this.update({
-                    isSignInFetching: false,
-                    lastSignInError: data.result,
-                    lastSignInErrorMessage: data.result.error
+                    signInState: APIState({
+                        error: data.result,
+                        errorMessage: data.result.error
+                    })
                 });
             }
         })
         .catch(err => {
-            this.update({
-                isSignInFetching: false,
-                lastSignInError: err,
-                lastSignInErrorMessage: err.message
-            });
+            signInState: APIState({
+                error: err,
+                errorMessage: err.message
+            })
         })
     }
 
+    /**
+     * サインアップする
+     * @param  {string} name name
+     * @param  {string} password password
+     * @param  {bool} [autoLogin=true] サインアップに成功した場合、自動的にログインするか
+     */
     signUp(name, password, autoLogin=true) {
         this.update({
-            isSignUpFetching: true,
-            lastSignUpError: null,
-            lastSignUpErrorMessage: ''
+            signUpState: APIState({
+                isActive: true
+            })
         });
 
         API.pPost('/user', {
@@ -69,9 +75,7 @@ export default class AuthStore extends Store {
         .then(data => {
             if (data.status === 200) {
                 this.update({
-                    isSignUpFetching: false,
-                    lastSignUpError: null,
-                    lastSignUpErrorMessage: ''
+                    signUpState: APIState()
                 });
 
                 if (autoLogin) {
@@ -79,21 +83,26 @@ export default class AuthStore extends Store {
                 }
             } else {
                 this.update({
-                    isSignUpFetching: false,
-                    lastSignUpError: data.result,
-                    lastSignUpErrorMessage: data.result.error
+                    signUpState: APIState({
+                        error: data.result,
+                        errorMessage: data.result.error
+                    })
                 });
             }
         })
         .catch(err => {
             this.update({
-                isSignUpFetching: false,
-                lastSignUpError: err,
-                lastSignUpErrorMessage: err.message
+                signUpState: APIState({
+                    error: err,
+                    errorMessage: err.message
+                })
             });
         })
     }
 
+    /**
+     * サインアウトする
+     */
     signOut() {
         this.update({
             isAuthorized: false,
