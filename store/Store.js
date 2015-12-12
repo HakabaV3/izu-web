@@ -3,11 +3,6 @@ import { EventEmitter } from 'events';
 const DISPATCH_EVENT = 'dispatch';
 
 export default class Store extends EventEmitter {
-    constructor(state) {
-        super()
-        this.state = state;
-    }
-
     update(newState) {
         Object.assign(this.state, newState);
 
