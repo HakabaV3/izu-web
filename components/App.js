@@ -1,7 +1,9 @@
-import MyRawTheme from '../theme/theme.js'
-import React, { Component, PropTypes } from 'react'
-import { AppBar } from 'material-ui/lib'
+import MyRawTheme from '../theme/theme.js';
+import React, { Component, PropTypes } from 'react';
+import AppBar from 'material-ui/lib/app-bar';
 import { ThemeManager } from 'material-ui/lib/styles';
+import SignInForm from './SignInForm';
+import SignUpForm from './SignUpForm';
 
 class App extends Component {
     getChildContext() {
@@ -10,9 +12,17 @@ class App extends Component {
       };
     }
 
+    onSignUpSubmit(name, password) {
+        authStore.dispatch(signUp(name, password));
+    }
+
 	render() {
 		return (
-			<AppBar title="旅ログ" />
+            <div>
+    			<AppBar title="旅ログ" />
+                <SignInForm />
+                <SignUpForm />
+            </div>
 		);
 	}
 }

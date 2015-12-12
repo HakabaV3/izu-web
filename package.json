@@ -32,15 +32,12 @@
     "express": "^4.13.3",
     "jsdom": "^5.6.1",
     "mocha": "^2.2.5",
-    "node-libs-browser": "^0.5.2",
     "node-sass": "^3.4.2",
     "react-addons-test-utils": "^0.14.0",
     "react-transform-hmr": "^1.0.0",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.9",
-    "webpack-dev-middleware": "^1.2.0",
-    "webpack-hot-middleware": "^2.2.0"
+    "webpack": "^1.12.9"
   },
   "dependencies": {
     "material-ui": "^0.14.0-rc1",
@@ -48,6 +45,8 @@
     "react-dom": "^0.14.3",
     "react-redux": "^4.0.0",
     "redux": "^3.0.4",
-    "redux-thunk": "^0.1.0"
+    "redux-thunk": "^0.1.0",
+    "webpack-dev-middleware": "^1.4.0",
+    "whatwg-fetch": "^0.10.1"
   }
 }
