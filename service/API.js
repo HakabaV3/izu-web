@@ -55,6 +55,26 @@ var API = {
 				body: JSON.stringify(body)
 			})
 			.then(pipeRes2JSON);
+	},
+	pPatch: function(url, body) {
+		url = wrapWithHost(url);
+
+		return fetchWithToken(url, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(body)
+			})
+			.then(pipeRes2JSON);
+	},
+	pDelete: function(url) {
+		url = wrapWithHost(url);
+
+		return fetchWithToken(url, {
+				method: 'DELETE'
+			})
+			.then(pipeRes2JSON);
 	}
 };
 
