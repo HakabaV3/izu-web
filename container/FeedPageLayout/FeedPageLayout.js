@@ -4,9 +4,18 @@ import React, { Component, PropTypes } from 'react';
 
 import PlanList from '../../components/PlanList/PlanList';
 
+import AuthStore from '../../store/AuthStore';
+const authStore = AuthStore.getStore();
+self.authStore = authStore;
+
 import PlanStore from '../../store/PlanStore';
 const planStore = PlanStore.getStore();
 self.planStore = planStore;
+
+import PhotoStore from '../../store/PhotoStore';
+const photoStore = PhotoStore.getStore();
+self.photoStore = photoStore;
+
 export default class FeedPageLayout extends Component {
 	constructor() {
 		super();

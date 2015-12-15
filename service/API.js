@@ -8,46 +8,43 @@ function pipeRes2JSON(res) {
 	return res.json();
 }
 
-function wrapWithHost(url) {
-	if (url.substr(0, 4).toLowerCase() === 'http') return url;
-
-	if (url.charAt(0) !== '/') {
-		url = '/' + url;
-	}
-
-	return HOST + url
-}
-
 var token = null;
 
-function fetchWithToken(url, opts) {
-	if (token) {
-		opts = opts || {};
-		opts.headers = opts.headers ||{};
-		opts.headers[HEADER_KEY_TOKEN] = token
-	}
-
-	return fetch(url, opts);
-}
-
-
 var API = {
+	fetchWithToken: function(url, opts) {
+		if (token) {
+			opts = opts || {};
+			opts.headers = opts.headers || {};
+			opts.headers[HEADER_KEY_TOKEN] = token
+		}
+
+		return fetch(url, opts);
+	},
 	setToken: function(newToken) {
 		token = newToken;
 	},
 	clearToken: function() {
 		token = null;
 	},
-	pGet: function(url) {
-		url = wrapWithHost(url);
+	wrapWithHost: function(url) {
+		if (url.substr(0, 4).toLowerCase() === 'http') return url;
 
-		return fetchWithToken(url)
+		if (url.charAt(0) !== '/') {
+			url = '/' + url;
+		}
+
+		return HOST + url
+	},
+	pGet: function(url) {
+		url = API.wrapWithHost(url);
+
+		return API.fetchWithToken(url)
 			.then(pipeRes2JSON);
 	},
 	pPost: function(url, body) {
-		url = wrapWithHost(url);
+		url = API.wrapWithHost(url);
 
-		return fetchWithToken(url, {
+		return API.fetchWithToken(url, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -57,9 +54,9 @@ var API = {
 			.then(pipeRes2JSON);
 	},
 	pPatch: function(url, body) {
-		url = wrapWithHost(url);
+		url = API.wrapWithHost(url);
 
-		return fetchWithToken(url, {
+		return API.fetchWithToken(url, {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json'
@@ -69,9 +66,9 @@ var API = {
 			.then(pipeRes2JSON);
 	},
 	pDelete: function(url) {
-		url = wrapWithHost(url);
+		url = API.wrapWithHost(url);
 
-		return fetchWithToken(url, {
+		return API.fetchWithToken(url, {
 				method: 'DELETE'
 			})
 			.then(pipeRes2JSON);
