@@ -1,31 +1,36 @@
-import MyRawTheme from '../theme/theme.js';
-import { ThemeManager } from 'material-ui/lib/styles';
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import FlatButton from 'material-ui/lib/flat-button';
 import TextField from 'material-ui/lib/text-field';
-import authAction from '../actions/auth';
+import React, { Component, PropTypes } from 'react';
 
-class SignUpForm extends Component {
-    getChildContext() {
-      return {
-        muiTheme: ThemeManager.getMuiTheme(MyRawTheme),
-      };
+export default class SignUpForm extends Component {
+    constructor() {
+        super();
+
+        this.state = {
+            name: '',
+            password: '',
+        }
     }
 
-    onSubmit(ev) {
-        let name = this.refs.nameInput.getValue(),
-            password = this.refs.passwordInput.getValue();
+    _onNameChange(ev) {
+        this.setState({
+            name: ev.target.value
+        });
+    }
 
-        this.props.onSubmit(name, password);
+    _onPasswordChange(ev) {
+        this.setState({
+            password: ev.target.value
+        });
+    }
+
+    _onSubmit(ev) {
+        this.props.onSubmit(this.state.name, this.state.password);
 
         ev.preventDefault();
-        return false;
     }
 
 	render() {
-        const { dispatch, disabled, lastErrorMessage } = this.props;
-
 		return (
             <form
                 style={{
@@ -34,26 +39,33 @@ class SignUpForm extends Component {
                     padding: '16px',
                     margin: '16px'
                 }}
-                method="POST" action="#" onSubmit={(ev) => this.onSubmit(ev)}>
+                disabled={this.props.disabled}
+                method="POST"
+                action="#"
+                onSubmit={(ev) => this._onSubmit(ev)}>
                 <h3>サインアップ</h3>
                 <div>
-                    <span style={{
-                            color: '#f00'
-                        }}>{lastErrorMessage}</span>
+                    <span style={{color: '#f00'}}>{this.props.errorMessage}</span>
                 </div>
                 <div>
                     <TextField
                         ref="nameInput"
-                        floatingLabelText="ユーザー名" />
+                        floatingLabelText="ユーザー名"
+                        value={this.state.name}
+                        disabled={this.props.disabled}
+                        onChange={(ev) => this._onNameChange(ev)} />
                 </div>
                 <div>
                     <TextField
                         ref="passwordInput"
                         type="password"
-                        floatingLabelText="パスワード" />
+                        floatingLabelText="パスワード"
+                        value={this.state.password}
+                        disabled={this.props.disabled}
+                        onChange={(ev) => this._onPasswordChange(ev)} />
                 </div>
                 <div>
-                    <input type="submit" disabled={disabled} value="サインアップ" />
+                    <input type="submit" disabled={this.props.disabled} value="サインアップ" />
                 </div>
             </form>
 		);
@@ -62,18 +74,6 @@ class SignUpForm extends Component {
 
 SignUpForm.propTypes = {
     disabled: PropTypes.bool,
-    lastErrorMessage: PropTypes.string,
+    errorMessage: PropTypes.string,
     onSubmit: PropTypes.func.isRequired
 };
-
-SignUpForm.childContextTypes = {
-	muiTheme: PropTypes.object,
-};
-
-
-export default connect(function(state){
-    return {
-        disabled: state.isFetching,
-        lastErrorMessage: state.lastErrorMessage
-    }
-})(SignUpForm)

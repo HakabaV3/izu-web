@@ -1,0 +1,49 @@
+@import "../../style/stylus/md-style.scss";
+
+.PlanListItem {
+	float: left;
+	display: block;
+	position: relative;
+	margin: 2px;
+	padding: 0;
+	background: $md-white;
+	width: 280px;
+	height: 200px;
+	overflow: hidden;
+}
+.AsyncImage {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.PlanListItem__actionBox {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 8px 16px;
+	box-sizing: border-box;
+	background: rgba($md-black, 0.5);
+}
+.PlanListItem__title {
+	font-size: 1rem;
+	line-height: 1;
+	margin: 8px 0;
+	padding: 0;
+	color: $md-white;
+}
+.PlanListItem__row {
+	margin: 8px 0;
+}
+.PlanListItem__row-meta {
+	@extend .PlanListItem__row;
+	font-size: 0.8em;
+	line-height: 1;
+	color: $md-grey-400;
+}
+.PlanListItem__ownerName {
+	font: inherit;
+	color: $md-primaryColor;
+}

@@ -1,210 +1,134 @@
 import Store from './Store';
 import API from '../service/API';
-import APIState from './structure/APIState';
 
-export default class PlanStoere extends Store {
-    constructor() {
-        super();
-        this.state = {
-            getPlanState: APIState(),
-            createPlanState: APIState(),
-            plans: new Map()
-        };
-    }
+export default class PlanStore extends Store {
+	constructor() {
+		super();
+		this.state = {
+			plans: new Map()
+		};
+	}
 
-    /**
-     * 全ユーザーの全てのプランを取得する。
-     */
-    getPlanAll() {
-        this.update({
-            getPlanState: APIState({
-                isActive: true
-            })
-        });
+	/**
+	 * 特定のユーザーのプランを取得する
+	 * @param  {string} name ユーザー名
+	 * @param {boolean} [flagForceUpdate=true] trueの場合、再度サーバーに問い合わせを行いデータを更新する
+	 * @return {Promise} 指定されたユーザーのプランの配列
+	 */
+	pGetByUserName(name, flagForceUpdate = true) {
+		let ps;
+		if (flagForceUpdate) {
+			ps = this.pFetchByUserName(name);
+		} else {
+			ps = Promise.resolve();
+		}
 
-        API.pGet('/plan')
-            .then((data) => {
-                if (data.status === 200) {
-                    data.result.plans.forEach(plan => {
-                        this.state.plans.set(plan.id, plan);
-                    });
-                    this.update({
-                        getPlanState: APIState()
-                    });
+		return ps
+			.then(() => {
+				return Array.from(this.state.plans.values())
+					.filter((plan) => (plan.owner === name));
+			});
+	}
 
-                } else {
-                    this.update({
-                        getPlanState: APIState({
-                            error: data.result,
-                            errorMessage: data.result.error
-                        })
-                    });
-                }
-            })
-            .catch((err) => {
-                this.update({
-                    getPlanState: APIState({
-                        error: err,
-                        errorMessage: err.message
-                    })
-                });
-            });
-    }
+	/**
+	 * 全ユーザーの全てのプランをサーバーにリクエストする
+	 * @return {Promise} 全ユーザーのプランの配列
+	 */
+	pFetchAll() {
+		return API.pGet('/plan')
+			.then(data => {
+				if (data.status !== 200) return Promise.reject(data.result);
 
-    /**
-     * 特定のユーザーのプランを取得する
-     * @param  {string} name ユーザー名
-     */
-    getPlanByUserId(name) {
-        this.update({
-            getPlanState: APIState({
-                isActive: true
-            })
-        });
+				const plans = data.result.plans;
+				plans.forEach(plan => {
+					this.state.plans.set(plan.id, plan);
+				});
+				this.dispatch();
 
-        API.pGet(`/plan/${name}`)
-            .then((data) => {
-                if (data.status === 200) {
-                    data.result.plans.forEach(plan => {
-                        this.state.plans.set(plan.id, plan);
-                        plan.deleteState = APIState()
-                        plan.updateState = APIState()
-                    });
-                    getPlanState: APIState()
+				return plans
+			});
+	}
 
-                } else {
-                    this.update({
-                        getPlanState: APIState({
-                            error: data.result,
-                            errorMessage: data.result.message,
-                        })
-                    });
-                }
-            })
-            .catch((err) => {
-                this.update({
-                    getPlanState: APIState({
-                        error: err,
-                        errorMessage: err.message
-                    })
-                });
-            });
-    }
+	/**
+	 * 特定のユーザーのプランをサーバーにリクエストする
+	 * @param  {string} name ユーザー名
+	 * @return {Promise} 指定されたユーザーのプランの配列
+	 */
+	pFetchByUserName(name) {
+		return API.pGet(`/plan/${name}`)
+			.then(data => {
+				if (data.status !== 200) return Promise.reject(data.result);
 
-    /**
-     * プランを作成する
-     * @param  {string} title タイトル
-     */
-    createPlan(title) {
-        this.update({
-            createPlanState: APIState({
-                isActive: true
-            })
-        });
+				const plans = data.result.plans;
+				plans.forEach(plan => {
+					this.state.plans.set(plan.id, plan);
+				});
+				this.dispatch();
 
-        API.pPost('/plan', {
-                'title': title
-            })
-            .then((data) => {
-                if (data.status === 200) {
-                    this.state.plans.set(data.result.plan.id,  data.result.plan);
-                    data.result.plan.deleteState = APIState()
-                    data.result.plan.updateState = APIState()
+				return plans;
+			});
+	}
 
-                    this.update({
-                        getPlanState: APIState()
-                    });
+	/**
+	 * プランを作成する
+	 * @param  {string} title タイトル
+	 * @return {Promise} 作成されたプラン
+	 */
+	pCreate(title) {
+		return API.pPost('/plan', {
+				'title': title
+			})
+			.then((data) => {
+				if (data.status !== 200) return Promise.reject(data.result);
 
-                } else {
-                    this.update({
-                        getPlanState: APIState({
-                            error: data.result,
-                            errorMessage: data.result.message,
-                        })
-                    });
-                }        })
-            .catch((err) => {
-                this.update({
-                    createPlanState: APIState({
-                        error: err,
-                        errorMessage: err.message
-                    })
-                });
-            })
-    }
+				const plan = data.result.plan;
+				this.state.plans.set(plan.id, plan);
+				this.dispatch();
 
-    /**
-     * プランを編集する
-     * @param  {string} planId プランID
-     */
-    updatePlan(planId, title) {
-        const targetPlan = this.state.plans.get(planId)
-        if (!targetPlan) throw new Error(`Plan ${planId} is not found.`);
+				return plan;
+			});
+	}
 
-        targetPlan.updateState = APIState({
-            isActive: true
-        });
-        this.dispatch();
+	/**
+	 * プランを編集する
+	 * @param  {string} planId プランID
+	 * @param  {string} title プラン名
+	 * @return {Promise} 更新されたプラン
+	 */
+	pPatch(planId, title) {
+		const targetPlan = this.state.plans.get(planId);
+		if (!targetPlan) return Promise.reject(new Error(`Plan ${planId} is not found.`));
 
-        API.pPatch(`/plan/${targetPlan.owner}/${targetPlan.id}`, {
-                title: title
-            })
-            .then((data) => {
-                if (data.status === 200) {
-                    targetPlan.title = title;
-                    targetPlan.updateState = APIState();
-                    this.dispatch();
+		return API.pPatch(`/plan/${targetPlan.owner}/${targetPlan.id}`, {
+				title: title
+			})
+			.then((data) => {
+				if (data.status !== 200) return Promise.reject(data.result);
 
-                } else {
-                    targetPlan.updateState = APIState({
-                        error: data.result,
-                        errorMessage: data.result.message,
-                    });
-                    this.dispatch();
-                }
-            })
-            .catch((err) => {
-                targetPlan.updateState = APIState({
-                    error: err,
-                    errorMessage: err.message
-                });
-                this.dispatch();
-            })
-    }
+				targetPlan.title = title;
+				this.dispatch();
 
-    /**
-     * プランを削除する
-     * @param  {string} planId プランID
-     */
-    deletePlan(planId) {
-        const targetPlan = this.state.plans.get(planId)
-        if (!targetPlan) throw new Error(`Plan ${planId} is not found.`);
+				return targetPlan;
+			});
+	}
 
-        targetPlan.deleteState = APIState({
-            isActive: true
-        });
-        this.dispatch();
+	/**
+	 * プランを削除する
+	 * @param  {string} planId プランID
+	 * @return {Promise} 削除されたプラン
+	 */
+	pDelete(planId) {
+		const targetPlan = this.state.plans.get(planId);
+		if (!targetPlan) return Promise.reject(new Error(`Plan ${planId} is not found.`));
 
-        API.pDelete(`/plan/${targetPlan.owner}/${targetPlan.id}`)
-            .then((data) => {
-                if (data.status === 201) {
-                    this.state.plans.delete(targetPlan.id);
-                    this.dispatch();
+		return API.pDelete(`/plan/${targetPlan.owner}/${targetPlan.id}`)
+			.then((data) => {
+				if (data.status !== 201) return Promise.reject(data.result);
 
-                } else {
-                    targetPlan.deleteState = APIState({
-                        error: data.result,
-                        errorMessage: data.result.message,
-                    });
-                    this.dispatch();
-                }
-            })
-            .catch((err) => {
-                targetPlan.deleteState = APIState({
-                    error: err,
-                    errorMessage: err.message
-                });
-                this.dispatch();
-            })
-    }
+				this.state.plans.delete(targetPlan.id);
+				this.dispatch();
+
+				return targetPlan;
+			});
+	}
 }

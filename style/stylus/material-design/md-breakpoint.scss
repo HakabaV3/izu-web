@@ -1,0 +1,24 @@
+//------------------------------------------------------------------------------
+// Break points
+$md-w-sm: 600px;
+$md-w-md: 960px;
+$md-w-lg: 1280px;
+$md-w-xl: 1920px;
+$md-w-mobile-portrait-sm: 360px;
+$md-w-mobile-portrait-md: 400px;
+$md-w-mobile-portrait: 600px;
+$md-w-tablet-portrait-lg: 720px;
+$md-w-tablet-portrait: 840px;
+$md-w-mobile-landscape-sm: 600px;
+$md-w-mobile-landscape-md: 720px;
+$md-w-mobile-landscape: 960px;
+$md-w-tablet-landscape-lg: 1024px;
+$md-w-tablet-landscape: 1280px;
+
+$md-query-tablet: 'only screen and (max-width: #{$md-w-tablet-landscape})';
+$md-query-tablet-portrait: 'only screen and (max-width: #{$md-w-tablet-portrait}) and (orientation: portrait)';
+$md-query-tablet-landscape: 'only screen and (max-width: #{$md-w-tablet-landscape}) and (orientation: landscape)';
+
+$md-query-mobile: 'only screen and (max-width: #{$md-w-mobile-landscape})';
+$md-query-mobile-portrait: 'only screen and (max-width: #{$md-w-mobile-portrait}) and (orientation: portrait)';
+$md-query-mobile-landscape: 'only screen and (max-width: #{$md-w-mobile-landscape}) and (orientation: landscape)';

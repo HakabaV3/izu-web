@@ -1,0 +1,29 @@
+@import "../../style/stylus/md-style.scss";
+
+.AsyncImage {
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	will-change: opacity, filter;
+	opacity: 0;
+	filter: grayscale(100%);
+
+	&:not(.--loading) {
+		animation: AsyncImage-fadeIn 0.8s 0.2s $ease-slide forwards;
+	}
+}
+
+@keyframes AsyncImage-fadeIn {
+	0% {
+		opacity: 0;
+		filter: grayscale(100%);
+	}
+	50% {
+		opacity: 1;
+		filter: grayscale(80%);
+	}
+	100% {
+		opacity: 1;
+		filter: grayscale(0%);
+	}
+}

@@ -1,0 +1,26 @@
+//Touch Target
+//@see https://www.google.com/design/spec/layout/metrics-keylines.html#metrics-keylines-touch-target-size
+$md-w-touchTarget: 48px;
+$md-h-touchTarget: 48px;
+
+//App Bar
+//@see https://www.google.com/design/spec/layout/structure.html#structure-app-bar
+$md-h-spls-appBar: 48px; //SmartPhone-LandScape
+$md-h-sppr-appBar: 56px; //SmartPhone-PortRait
+$md-h-appBar: 64px;
+$md-w-appBar-padding: 24px;
+$md-w-appBar-padding-title: 80px;
+$md-h-appBar-padding-icon: 20px;
+
+//Side Nav
+//@see https://www.google.com/design/spec/layout/structure.html#structure-side-nav
+$md-w-sideNav: calc(100% - 56px);
+$md-w-sideNav-max-device: 320px;
+$md-w-sideNav-max-desktop: 400px;
+
+//gutter and margin
+//@see https://www.google.com/design/spec/layout/adaptive-ui.html#adaptive-ui-grid
+$md-w-gutter-1: 8px;
+$md-w-gutter-2: 16px;
+$md-w-gutter-3: 24px;
+$md-w-gutter-4: 40px;

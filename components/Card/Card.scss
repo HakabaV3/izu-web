@@ -1,0 +1,12 @@
+@import '../../style/stylus/md-style.scss';
+
+.Card
+{
+    box-sizing: border-box;
+    margin: 16px 16px;
+    padding: 16px;
+
+    background: #fff;
+
+    @include md-elevation-card();
+}
