@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register --require ./test/setup.js",
+    "test": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register --require",
     "test:watch": "npm test -- --watch"
   },
   "homepage": "https://github.com/kaonashi-io/web-console",
@@ -28,24 +28,22 @@
     "babel-plugin-react-transform": "^1.1.0",
     "css-loader": "^0.23.0",
     "eslint": "^1.8.0",
+    "eslint-plugin-html": "^1.1.0",
     "expect": "^1.6.0",
     "express": "^4.13.3",
     "jsdom": "^5.6.1",
     "mocha": "^2.2.5",
     "node-sass": "^3.4.2",
-    "react-addons-test-utils": "^0.14.0",
-    "react-transform-hmr": "^1.0.0",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.9"
   },
   "dependencies": {
+    "classnames": "^2.2.1",
     "material-ui": "^0.14.0-rc1",
     "react": "^0.14.3",
+    "react-addons-transition-group": "^0.14.3",
     "react-dom": "^0.14.3",
-    "react-redux": "^4.0.0",
-    "redux": "^3.0.4",
-    "redux-thunk": "^0.1.0",
     "webpack-dev-middleware": "^1.4.0",
     "whatwg-fetch": "^0.10.1"
   }

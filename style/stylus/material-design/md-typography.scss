@@ -1,0 +1,193 @@
+@import './md-color.scss';
+@import './md-breakpoint.scss';
+
+//font-family
+$md-fontfamily: 'RobotoDraft','Roboto',sans-serif;
+
+// @TODO convert unit from px to dp
+//font-size
+$md-fontsize-d4: 112px;
+$md-fontsize-d3: 56px;
+$md-fontsize-d2: 45px;
+$md-fontsize-d1: 18px;
+$md-fontsize-headline: 24px;
+$md-fontsize-title: 21px;
+$md-fontsize-subhead-device: 17px;
+$md-fontsize-subhead-desktop: 16px;
+$md-fontsize-subhead: $md-fontsize-subhead-desktop;
+$md-fontsize-body2-device: 15px;
+$md-fontsize-body2-desktop: 14px;
+$md-fontsize-body2: $md-fontsize-body2-desktop;
+$md-fontsize-body1-device: 15px;
+$md-fontsize-body1-desktop: 14px;
+$md-fontsize-body1: $md-fontsize-body1-desktop;
+$md-fontsize-caption: 13px;
+$md-fontsize-button: 15px;
+
+//font-weight
+$md-fontweight-light: 100;
+$md-fontweight-regular: 500;
+$md-fontweight-medium: 900;
+$md-fontweight-d4: $md-fontweight-light;
+$md-fontweight-d3: $md-fontweight-regular;
+$md-fontweight-d2: $md-fontweight-regular;
+$md-fontweight-d1: $md-fontweight-medium;
+$md-fontweight-headline: $md-fontweight-regular;
+$md-fontweight-title: $md-fontweight-regular;
+$md-fontweight-subhead-device: $md-fontweight-regular;
+$md-fontweight-subhead-desktop: $md-fontweight-regular;
+$md-fontweight-body2-device: $md-fontweight-medium;
+$md-fontweight-body2-desktop: $md-fontweight-medium;
+$md-fontweight-body1-device: $md-fontweight-regular;
+$md-fontweight-body1-desktop: $md-fontweight-regular;
+$md-fontweight-caption: $md-fontweight-regular;
+$md-fontweight-button: $md-fontweight-medium;
+
+//line-height
+//$md-lineheight-d4 is single-line only, so this is dummy value.
+$md-lineheight-d4: 112px;
+
+//$md-lineheight-d3 is single-line only, so this is dummy value.
+$md-lineheight-d3: 56px;
+$md-lineheight-d2: 63px;
+$md-lineheight-d1: 24px;
+$md-lineheight-headline: 34px;
+$md-lineheight-title: 30px;
+$md-lineheight-subhead: 26px;
+$md-lineheight-body2: 26px;
+$md-lineheight-body1: 26px;
+
+//$md-lineheight-caption is single-line only, so this is dummy value.
+$md-lineheight-caption: 13px;
+
+//$md-lineheight-button is single-line only, so this is dummy value.
+$md-lineheight-button: 15px;
+
+//color(opacity)
+$md-fontOpacity-d4: .54;
+$md-fontOpacity-d3: .54;
+$md-fontOpacity-d2: .54;
+$md-fontOpacity-d1: .87;
+$md-fontOpacity-headline: .87;
+$md-fontOpacity-title: .87;
+$md-fontOpacity-subhead: .87;
+$md-fontOpacity-body2: .87;
+$md-fontOpacity-body1: .87;
+$md-fontOpacity-caption: .54;
+$md-fontOpacity-button: .87;
+
+//mixin
+@mixin md-font-d4($color: $md-black)
+{
+    font-family: $md-fontfamily;
+    font-size: $md-fontsize-d4;
+    font-weight: $md-fontweight-d4;
+    line-height: $md-lineheight-d4;
+
+    color: lighten($color, $md-fontOpacity-d4);
+}
+@mixin md-font-d3($color: $md-black)
+{
+    font-family: $md-fontfamily;
+    font-size: $md-fontsize-d3;
+    font-weight: $md-fontweight-d3;
+    line-height: $md-lineheight-d3;
+
+    color: lighten($color, $md-fontOpacity-d3);
+}
+@mixin md-font-d2($color: $md-black)
+{
+    font-family: $md-fontfamily;
+    font-size: $md-fontsize-d2;
+    font-weight: $md-fontweight-d2;
+    line-height: $md-lineheight-d2;
+
+    color: lighten($color, $md-fontOpacity-d2);
+}
+@mixin md-font-d1($color: $md-black)
+{
+    font-family: $md-fontfamily;
+    font-size: $md-fontsize-d1;
+    font-weight: $md-fontweight-d1;
+    line-height: $md-lineheight-d1;
+
+    color: lighten($color, $md-fontOpacity-d1);
+}
+@mixin md-font-headline($color: $md-black)
+{
+    font-family: $md-fontfamily;
+    font-size: $md-fontsize-headline;
+    font-weight: $md-fontweight-headline;
+    line-height: $md-lineheight-headline;
+
+    color: lighten($color, $md-fontOpacity-headline);
+}
+@mixin md-font-title($color: $md-black)
+{
+    font-family: $md-fontfamily;
+    font-size: $md-fontsize-title;
+    font-weight: $md-fontweight-title;
+    line-height: $md-lineheight-title;
+
+    color: lighten($color, $md-fontOpacity-title);
+}
+@mixin md-font-subhead($color: $md-black)
+{
+    font-family: $md-fontfamily;
+    font-size: $md-fontsize-subhead-desktop;
+    font-weight: $md-fontweight-subhead-desktop;
+    line-height: $md-lineheight-subhead;
+
+    color: lighten($color, $md-fontOpacity-subhead);
+    @media #{$md-query-tablet-portrait}
+    {
+        font-size: $md-fontsize-subhead-device;
+        font-weight: $md-fontweight-subhead-device;
+    }
+}
+@mixin md-font-body2($color: $md-black)
+{
+    font-family: $md-fontfamily;
+    font-size: $md-fontsize-body2-desktop;
+    font-weight: $md-fontweight-body2-desktop;
+    line-height: $md-lineheight-body2;
+
+    color: lighten($color, $md-fontOpacity-body2);
+    @media #{$md-query-tablet-portrait}
+    {
+        font-size: $md-fontsize-body2-device;
+        font-weight: $md-fontweight-body2-device;
+    }
+}
+@mixin md-font-body1($color: $md-black)
+{
+    font-family: $md-fontfamily;
+    font-size: $md-fontsize-body1-desktop;
+    font-weight: $md-fontweight-body1-desktop;
+    line-height: $md-lineheight-body1;
+
+    color: lighten($color, $md-fontOpacity-body1);
+    @media #{$md-query-tablet-portrait}
+    {
+        font-size: $md-fontsize-body1-device;
+        font-weight: $md-fontweight-body1-device;
+    }
+}
+@mixin md-font-caption($color: $md-black)
+{
+    font-family: $md-fontfamily;
+    font-size: $md-fontsize-caption;
+    font-weight: $md-fontweight-caption;
+    line-height: $md-lineheight-caption;
+
+    color: lighten($color, $md-fontOpacity-caption);
+}
+@mixin md-font-button($color: $md-black)
+{
+    font-family: $md-fontfamily;
+    font-size: $md-fontsize-button;
+    font-weight: $md-fontweight-button;
+    line-height: $md-lineheight-button;
+
+    color: lighten($color, $md-fontOpacity-button);
+}

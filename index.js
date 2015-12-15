@@ -1,5 +1,9 @@
 import './style/style.scss';
-import AuthStore from './store/AuthStore';
-import PlanStore from './store/PlanStore';
-self.authStore = AuthStore.getStore();
-self.planStore = PlanStore.getStore();
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './container/App/App';
+
+ReactDOM.render(
+    <App />,
+    document.getElementById('root')
+);
