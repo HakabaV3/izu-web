@@ -29,6 +29,8 @@ export default class AuthStore extends Store {
 					authorizedName: data.result.user.name,
 					token: data.result.user.token
 				});
+
+				return data.result.user;
 			});
 	}
 
@@ -50,6 +52,8 @@ export default class AuthStore extends Store {
 					authorizedName: data.result.user.name,
 					token: data.result.user.token
 				});
+
+				return data.result.user;
 			});
 	}
 

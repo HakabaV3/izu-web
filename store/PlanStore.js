@@ -41,11 +41,11 @@ export default class PlanStore extends Store {
 
 				const plans = data.result.plans;
 				plans.forEach(plan => {
-					this.state.plans.set(plan.id, plan);
+					this.state.plans.set(plan.id, formatPlan(plan));
 				});
 				this.dispatch();
 
-				return plans
+				return plans;
 			});
 	}
 
@@ -61,7 +61,7 @@ export default class PlanStore extends Store {
 
 				const plans = data.result.plans;
 				plans.forEach(plan => {
-					this.state.plans.set(plan.id, plan);
+					this.state.plans.set(plan.id, formatPlan(plan));
 				});
 				this.dispatch();
 
@@ -82,7 +82,7 @@ export default class PlanStore extends Store {
 				if (data.status !== 200) return Promise.reject(data.result);
 
 				const plan = data.result.plan;
-				this.state.plans.set(plan.id, plan);
+				this.state.plans.set(plan.id, formatPlan(plan));
 				this.dispatch();
 
 				return plan;
@@ -131,4 +131,21 @@ export default class PlanStore extends Store {
 				return targetPlan;
 			});
 	}
+}
+
+/**
+ * APIのレスポンスを整形する
+ * @param {Object} data APIのレスポンス
+ * @return {Object} 整形後のオブジェクト
+ */
+function formatPlan(data) {
+	return {
+		id: data.id,
+		title: data.title,
+		owner: data.owner,
+		description: data.description || '',
+		created: data.created * 1000,
+		updated: data.updated * 1000,
+		photos: []
+	};
 }
