@@ -1,10 +1,12 @@
-const Colors = require('material-ui/lib/styles/colors');
-const ColorManipulator = require('material-ui/lib/utils/color-manipulator');
-const Spacing = require('material-ui/lib/styles/spacing');
+import Colors from 'material-ui/lib/styles/colors';
+import ColorManipulator from 'material-ui/lib/utils/color-manipulator';
+import Spacing from 'material-ui/lib/styles/spacing';
+import zIndex from 'material-ui/lib/styles/zIndex';
 
 module.exports = {
 	spacing: Spacing,
 	fontFamily: 'Roboto, sans-serif',
+	zIndex: zIndex,
 	palette: {
 		primary1Color: Colors.orange500,
 		primary2Color: Colors.orange700,

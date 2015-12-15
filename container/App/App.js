@@ -1,6 +1,6 @@
 import './App.scss';
 
-import MyRawTheme from '../../theme/theme.js';
+import MyRawTheme from '../../theme/theme';
 import { ThemeManager } from 'material-ui/lib/styles';
 
 import React, { Component, PropTypes } from 'react';
