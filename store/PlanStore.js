@@ -142,10 +142,11 @@ function formatPlan(data) {
 	return {
 		id: data.id,
 		title: data.title,
+		userId: data.userId,
 		owner: data.owner,
 		description: data.description || '',
-		created: data.created * 1000,
-		updated: data.updated * 1000,
+		created: (data.created || 0) * 1000,
+		updated: (data.updated || 0) * 1000,
 		photos: []
 	};
 }

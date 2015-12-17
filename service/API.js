@@ -1,8 +1,8 @@
 import 'whatwg-fetch'
 
 const HEADER_KEY_TOKEN = 'X-Session-Token';
-const HOST = 'http://izu.hakaba.xyz/api/v1';
-// const HOST = 'http://localhost:3001/api/v1'; //DEBUG ONLY
+// const HOST = 'http://izu.hakaba.xyz/api/v1';
+const HOST = 'http://izu-staging.hakaba.xyz/api/v1';
 
 function pipeRes2JSON(res) {
 	return res.json();

@@ -1,5 +1,8 @@
 import Store from './Store';
 import API from '../service/API';
+import PlanStore from './PlanStore';
+
+const planStore = PlanStore.getStore();
 
 export default class PhotoStore extends Store {
 	constructor() {
@@ -122,8 +125,10 @@ export default class PhotoStore extends Store {
 			.then((data) => {
 				if (data.status !== 201) return Promise.reject(data.result);
 
-				this.state.plans.delete(photo.id);
+				this.state.photos.delete(photo.id);
 				this.dispatch();
+
+				photoStore.pFetchByPlan(planStore.state.plans.get(photo.planId));
 
 				return photo;
 			});
@@ -143,10 +148,10 @@ function formatPhoto(photo) {
 		owner: photo.owner,
 		latitude: photo.latitude,
 		longitude: photo.longitude,
-		date: photo.date * 1000,
+		date: (photo.date || 0) * 1000,
 		description: photo.description,
-		created: photo.created * 1000,
-		updated: photo.updated * 1000,
+		created: (photo.created || 0) * 1000,
+		updated: (photo.updated || 0) * 1000,
 		url: photo.url
 	};
 }
