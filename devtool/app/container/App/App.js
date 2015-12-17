@@ -24,7 +24,7 @@ export default class App extends Component {
 	render() {
 		return (
             <div className="App">
-                <AppBar title="Izu developoment tool"></AppBar>
+                <AppBar title="Izu development tool"></AppBar>
                 <div className="App__pagerWrapper">
                     <SignUpForm></SignUpForm>
                     <SignInForm></SignInForm>
