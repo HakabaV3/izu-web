@@ -65,9 +65,6 @@ export default class PhotoStore extends Store {
 		let json = new File([JSON.stringify(detail)], 'detail.json', {
 				type: 'application/json'
 			}),
-			// image = new File([''], 'image.jpg', {
-			// 	type: 'image/jpg'
-			// }),
 			formData = new FormData();
 
 		formData.append('detail', json);
@@ -78,9 +75,6 @@ export default class PhotoStore extends Store {
 		return API.fetchWithToken(url, {
 				method: 'POST',
 				body: formData,
-				// headers: {
-				// 	'Content-Type': 'multipart/form-data'
-				// }
 			})
 			.then(data => data.json())
 			.then(data => {

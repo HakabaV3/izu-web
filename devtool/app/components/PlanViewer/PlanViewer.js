@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import PhotoViewer from '../PhotoViewer/PhotoViewer'
+
 import PlanStore from 'store/PlanStore'
-import PhotoStore from 'store/PhotoStore'
+import PhotoStore from 'store/PlanStore'
+
+import PlanCreateForm from 'components/PlanCreateForm/PlanCreateForm'
+import PlanDetailTable from 'components/PlanDetailTable/PlanDetailTable'
 
 const planStore = PlanStore.getStore();
 const photoStore = PhotoStore.getStore();
@@ -15,7 +18,13 @@ export default class PlanViewer extends Component {
         }
 
         planStore.subscribe(() => {
-            this.setState({})
+            if (!planStore.state.plans.get(this.state.selectedPlanId)) {
+                this.setState({
+                    selectedPlanId: planStore.state.plans.keys().next().value
+                });
+            } else {
+                this.setState();
+            }
         });
     }
 
@@ -59,6 +68,10 @@ export default class PlanViewer extends Component {
             });
     }
 
+    _onUploadClick(ev) {
+
+    }
+
     render() {
         let plans = Array.from(planStore.state.plans.values()),
             options = plans.map((plan) => {
@@ -68,78 +81,27 @@ export default class PlanViewer extends Component {
                     </option>
                 )
             }),
-            selectedPlan = planStore.state.plans.get(this.state.selectedPlanId),
-            planDetail = null;
-
-        if (selectedPlan) {
-            let photos = selectedPlan.photos,
-                options = photos.map(photo => {
-                    return (
-                        <option key={photo.id} value={photo.id}>
-                            {photo.description}
-                        </option>
-                    )
-                });
-
-            planDetail = (
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>id</th>
-                            <td>{selectedPlan.id}</td>
-                        </tr>
-                        <tr>
-                            <th>title</th>
-                            <td>{selectedPlan.title}</td>
-                        </tr>
-                        <tr>
-                            <th>description</th>
-                            <td>{selectedPlan.description}</td>
-                        </tr>
-                        <tr>
-                            <th>userId</th>
-                            <td>{selectedPlan.userId}</td>
-                        </tr>
-                        <tr>
-                            <th>owner</th>
-                            <td>{selectedPlan.owner}</td>
-                        </tr>
-                        <tr>
-                            <th>created</th>
-                            <td>{selectedPlan.created}</td>
-                        </tr>
-                        <tr>
-                            <th>updated</th>
-                            <td>{selectedPlan.updated}</td>
-                        </tr>
-                        <tr>
-                            <th>photos</th>
-                            <td>
-                                <select onChange={(ev) => this._onPhotoChange(ev)}>{options}</select>
-                                <PhotoViewer selectedPhotoId={this.state.selectedPhotoId} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>DELETE</th>
-                            <td><input type="button" value="削除" onClick={(ev) => this._onDeleteClick(ev)}/></td>
-                        </tr>
-                    </tbody>
-                </table>
-            );
-        }
+            selectedPlan = planStore.state.plans.get(this.state.selectedPlanId);
 
         return (
             <div
                 className="dev PlanViewer"
                 onSubmit={(ev) => this._onFormSubmit(ev)}>
-                <h3>プラン詳細確認</h3>
-                <p>
-                    <select
-                        onChange={(ev) => this._onPlanChange(ev)}>
-                        {options}
-                    </select>
-                </p>
-                {planDetail}
+                <h3>プラン</h3>
+                <section>
+                    <h4>作成</h4>
+                    <PlanCreateForm />
+                </section>
+                <section>
+                    <h4>プラン詳細</h4>
+                    <p>
+                        <select
+                            onChange={(ev) => this._onPlanChange(ev)}>
+                            {options}
+                        </select>
+                    </p>
+                    <PlanDetailTable plan={selectedPlan} />
+                </section>
             </div>
         )
     }
