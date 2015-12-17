@@ -1,24 +1,26 @@
 # izu-web
 
-izuのweb
+izuのweb、およびツール
 
 
-## インストール
+## 使用方法
+
+1. 初回のみ
 
 ```bash
-bower install
-npm install # すごく時間かかるよ！！
+$ npm install #めっちゃ時間かかるよ！！！
 ```
 
+アプリ本体（つまり、リポジトリのルートディレクトリ）でも、 `npm install` をしておくこと。
 
-## 起動
+2. 起動
 
 ```bash
-npm start # localhost:3000
+$ npm start  # listen on localhost:3000
 ```
 
-または、ポート番号指定して
+または、ポートを指定して
 
 ```bash
-PORT=8888 npm start # localhost:8888
+$ PORT=3001 npm start  # listen on localhost:3001
 ```
