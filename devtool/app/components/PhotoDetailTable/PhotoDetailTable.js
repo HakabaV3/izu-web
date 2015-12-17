@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import PhotoStore from 'store/PhotoStore'
+import Time from 'components/Time/Time'
 
 const photoStore = PhotoStore.getStore();
 
-export default class PhotoViewer extends Component {
+export default class PhotoDetailTable extends Component {
     constructor() {
         super()
 
@@ -16,10 +17,7 @@ export default class PhotoViewer extends Component {
     }
 
     _onDeleteClick(ev) {
-        let selectedPhotoId = this.props.selectedPhotoId,
-            selectedPhoto = photoStore.state.photos.get(selectedPhotoId);
-
-        photoStore.pDelete(selectedPhoto)
+        photoStore.pDelete(this.props.photo)
             .then(()=>{
                 this.setState({});
             },
@@ -29,11 +27,10 @@ export default class PhotoViewer extends Component {
     }
 
     render() {
-        let selectedPhotoId = this.props.selectedPhotoId,
-            selectedPhoto = photoStore.state.photos.get(selectedPhotoId),
+        let photo = this.props.photo,
             tbody = undefined;
 
-        if (selectedPhoto) {
+        if (photo) {
             tbody = (
                 <tbody>
                     <tr>
@@ -66,15 +63,15 @@ export default class PhotoViewer extends Component {
                     </tr>
                     <tr>
                         <th>date</th>
-                        <td>{selectedPhoto.date}</td>
+                        <td><Time value={selectedPhoto.date}/></td>
                     </tr>
                     <tr>
                         <th>created</th>
-                        <td>{selectedPhoto.created}</td>
+                        <td><Time value={selectedPhoto.created}/></td>
                     </tr>
                     <tr>
                         <th>updated</th>
-                        <td>{selectedPhoto.updated}</td>
+                        <td><Time value={selectedPhoto.updated}/></td>
                     </tr>
                     <tr>
                         <th>DELETE</th>
@@ -95,7 +92,7 @@ export default class PhotoViewer extends Component {
 
         return (
             <table
-                className="PhotoViewer dev">
+                className="PhotoDetailTable dev">
                 {tbody}
             </table>
         )
