@@ -1,5 +1,5 @@
-import Store from './Store';
-import API from '../service/API';
+import API from 'service/API'
+import Store from 'store/Store'
 
 export default class AuthStore extends Store {
 	constructor() {
@@ -29,6 +29,7 @@ export default class AuthStore extends Store {
 					authorizedName: data.result.user.name,
 					token: data.result.user.token
 				});
+
 
 				return data.result.user;
 			});

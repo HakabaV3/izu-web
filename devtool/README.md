@@ -1,7 +1,6 @@
-# izu-web
+# izu web development tool
 
-izuのweb、およびツール
-
+開発用にお使いください。
 
 ## 使用方法
 
@@ -10,8 +9,6 @@ izuのweb、およびツール
 ```bash
 $ npm install #めっちゃ時間かかるよ！！！
 ```
-
-アプリ本体（つまり、リポジトリのルートディレクトリ）でも、 `npm install` をしておくこと。
 
 2. 起動
 
