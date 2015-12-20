@@ -1,10 +1,8 @@
-import Store from './Store';
-import API from '../service/API';
-import PlanStore from './PlanStore';
+import Store from 'store/Store'
+import API from 'service/API'
+// import PlanStore from 'store/PlanStore'
 
-const planStore = PlanStore.getStore();
-
-export default class PhotoStore extends Store {
+export default new class extends Store {
 	constructor() {
 		super();
 		this.state = {
@@ -81,7 +79,12 @@ export default class PhotoStore extends Store {
 				if (data.status !== 200) return Promise.reject(data.result);
 
 				const photo = data.result.photo;
-				this.state.plans.set(photo.id, formatPhoto(photo));
+				this.state.photos.set(photo.id, formatPhoto(photo));
+				plan.photos.push(photo);
+
+				//@TODO 応急処理
+				self.PlanStore.dispatch();
+				this.dispatch();
 
 				return photo;
 			});
@@ -122,7 +125,8 @@ export default class PhotoStore extends Store {
 				this.state.photos.delete(photo.id);
 				this.dispatch();
 
-				photoStore.pFetchByPlan(planStore.state.plans.get(photo.planId));
+				//@TODO 応急処理
+				this.pFetchByPlan(self.PlanStore.state.plans.get(photo.planId));
 
 				return photo;
 			});

@@ -3,7 +3,7 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var TransferWebpackPlugin = require('transfer-webpack-plugin');
 
-const PATH_BUILD = path.resolve(__dirname, 'www');
+const PATH_BUILD = path.resolve(__dirname, './www');
 const PATH_NODE_MODULES = path.resolve(__dirname, './node_modules');
 
 module.exports = {
@@ -11,15 +11,13 @@ module.exports = {
 		path.join(__dirname, './app/index.js')
 	],
 	resolve: {
-		extensions: ['', '.js', '.jsx', '.md', '.txt'],
+		extensions: ['', '.js', '.jsx'],
 		modulesDirectories: [
-			'web_modules',
-			'node_modules',
 			PATH_NODE_MODULES,
-			path.resolve(__dirname, '../node_modules'),
-			path.resolve(__dirname, './app'),
-			path.resolve(__dirname, '../')
-		]
+			path.join(__dirname, '../node_modules'),
+			path.join(__dirname, './app'),
+			path.join(__dirname, '../')
+		],
 	},
 	devtool: 'source-map',
 	devServer: {
@@ -48,19 +46,13 @@ module.exports = {
 			template: path.join(__dirname, './www/index.html')
 		}),
 		new webpack.NoErrorsPlugin(),
-		new TransferWebpackPlugin([{
-			from: 'www/css',
-			to: 'css'
-		}, {
-			from: 'www/images',
-			to: 'images'
-		}], __dirname)
+		new TransferWebpackPlugin([], __dirname)
 	],
 	module: {
 		loaders: [{
 			test: /\.(js|jsx)$/,
 			loaders: [
-				'babel-loader?optional=runtime&stage=0'
+				'babel-loader'
 			],
 			exclude: [
 				PATH_NODE_MODULES
@@ -74,8 +66,5 @@ module.exports = {
 				'sass?outputStyle=expanded'
 			]
 		}]
-	},
-	eslint: {
-		configFile: '../.eslintrc'
 	}
 };

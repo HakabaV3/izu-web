@@ -20,9 +20,4 @@ export default class Store extends EventEmitter {
     unsubscribe(callback) {
         this.off(DISPATCH_EVENT, callback);
     }
-
 }
-
-Store.getStore = function() {
-    return this.__instance || (this.__instance = new this());
-};

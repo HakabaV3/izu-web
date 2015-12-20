@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import AuthStore from 'store/AuthStore'
 
-const authStore = AuthStore.getStore();
-
 const State = {
     UNAUTHORIZED: 'UNAUTHORIZED',
     ACTIVE: 'ACTIVE',
@@ -16,10 +14,10 @@ export default class SignInForm extends Component {
         this.state = {
             name: '',
             password: '',
-            state: authStore.state.isAuthorized ? State.AUTHORIZED : State.UNAUTHORIZED
+            state: AuthStore.state.isAuthorized ? State.AUTHORIZED : State.UNAUTHORIZED
         }
 
-        authStore.subscribe(() => {
+        AuthStore.subscribe(() => {
             this.setState({
                 updated: Date.now()
             })
@@ -43,7 +41,7 @@ export default class SignInForm extends Component {
             state: State.ACTIVE
         });
 
-        authStore
+        AuthStore
             .pSignIn(this.state.name, this.state.password)
             .then(() => {
                 this.setState({
@@ -93,7 +91,7 @@ export default class SignInForm extends Component {
                         </tr>
                         <tr>
                             <th>アカウント</th>
-                            <td>{authStore.state.authorizedName}</td>
+                            <td>{AuthStore.state.authorizedName}</td>
                         </tr>
                         <tr>
                             <th>トークン</th>
@@ -101,7 +99,7 @@ export default class SignInForm extends Component {
                                     display: 'block',
                                     maxWidth: '300px'
                                 }}>
-                                {authStore.state.token}
+                                {AuthStore.state.token}
                             </td>
                         </tr>
                     </tbody>

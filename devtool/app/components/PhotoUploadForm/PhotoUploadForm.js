@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import PhotoStore from 'store/PhotoStore'
 
-const photoStore = PhotoStore.getStore();
-
 const State = {
     SLEEP: 'SLEEP',
     ACTIVE: 'ACTIVE',
@@ -22,7 +20,7 @@ export default class PhotoUploader extends Component {
             date: 0,
             state: State.SLEEP
         };
-        photoStore.subscribe(() => {
+        PhotoStore.subscribe(() => {
             this.setState({})
         });
     }
@@ -58,7 +56,7 @@ export default class PhotoUploader extends Component {
             state: State.ACTIVE
         });
 
-        photoStore
+        PhotoStore
             .pCreate(this.props.plan, {
                 description: this.state.description,
                 latitude: this.state.latitude,

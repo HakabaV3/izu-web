@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import PlanStore from 'store/PlanStore'
 
-const planStore = PlanStore.getStore();
-
 const State = {
     SLEEP: 'SLEEP',
     ACTIVE: 'ACTIVE',
@@ -17,7 +15,7 @@ export default class PlanCreateForm extends Component {
             title: null,
             state: State.SLEEP
         };
-        planStore.subscribe(() => {
+        PlanStore.subscribe(() => {
             this.setState({})
         });
     }
@@ -33,7 +31,7 @@ export default class PlanCreateForm extends Component {
             state: State.ACTIVE
         });
 
-        planStore
+        PlanStore
             .pCreate(this.state.title)
             .then(() => {
                 this.setState({

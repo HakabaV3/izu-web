@@ -1,7 +1,7 @@
 import API from 'service/API'
 import Store from 'store/Store'
 
-export default class AuthStore extends Store {
+export default new class extends Store {
 	constructor() {
 		super();
 		this.state = {
@@ -24,12 +24,12 @@ export default class AuthStore extends Store {
 			.then(data => {
 				if (data.status !== 200) return Promise.reject(data.result);
 
+				API.setToken(data.result.user.token);
 				this.update({
 					isAuthorized: true,
 					authorizedName: data.result.user.name,
 					token: data.result.user.token
 				});
-
 
 				return data.result.user;
 			});
@@ -48,6 +48,7 @@ export default class AuthStore extends Store {
 			.then(data => {
 				if (data.status !== 200) return Promise.reject(data.result);
 
+				API.setToken(data.result.user.token);
 				this.update({
 					isAuthorized: true,
 					authorizedName: data.result.user.name,
@@ -70,8 +71,3 @@ export default class AuthStore extends Store {
 		API.clearToken();
 	}
 }
-
-AuthStore.getStore()
-	.subscribe(function(store) {
-		API.setToken(store.state.token);
-	});
