@@ -8,8 +8,9 @@ import PhotoDetailTable from 'components/PhotoDetailTable/PhotoDetailTable'
 import PhotoUploadForm from 'components/PhotoUploadForm/PhotoUploadForm'
 import Time from 'components/Time/Time'
 
-const planStore = PlanStore.getStore();
-const photoStore = PhotoStore.getStore();
+//@TODO 応急処理
+self.PhotoStore = PhotoStore;
+self.PlanStore = PlanStore;
 
 export default class PlanDetailTable extends Component {
     constructor() {
@@ -19,11 +20,9 @@ export default class PlanDetailTable extends Component {
             disabledRemoveButton: false
         }
 
-        photoStore.subscribe(() => {
-            if (!photoStore.state.photos.get(this.state.selectedPlanId)) {
-                this.setState({
-                    selectedPhotoId: photoStore.state.photos.keys().next().value
-                });
+        PhotoStore.subscribe(() => {
+            if (!PhotoStore.state.photos.get(this.state.selectedPlanId)) {
+                this._selectPhoto(PhotoStore.state.photos.values().next().value);
             } else {
                 this.setState();
             }
@@ -32,10 +31,14 @@ export default class PlanDetailTable extends Component {
 
     _onPhotoChange(ev) {
         let selectedPhotoId = ev.target.value,
-            selectedPhoto = photoStore.state.photos.get(selectedPhotoId)
+            selectedPhoto = PhotoStore.state.photos.get(selectedPhotoId)
 
+        this._selectPhoto(selectedPhoto);
+    }
+
+    _selectPhoto(photo) {
         this.setState({
-            selectedPhoto: selectedPhoto
+            selectedPhoto: photo
         });
     }
 
@@ -44,7 +47,7 @@ export default class PlanDetailTable extends Component {
             disabledRemoveButton: true
         });
 
-        planStore.pDelete(this.props.plan.id)
+        PlanStore.pDelete(this.props.plan.id)
             .then(()=>{
                 this.setState({
                     disabledRemoveButton: false

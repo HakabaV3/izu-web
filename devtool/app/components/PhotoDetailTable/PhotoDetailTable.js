@@ -2,22 +2,17 @@ import React, { Component } from 'react'
 import PhotoStore from 'store/PhotoStore'
 import Time from 'components/Time/Time'
 
-const photoStore = PhotoStore.getStore();
-
 export default class PhotoDetailTable extends Component {
     constructor() {
         super()
 
-        photoStore.subscribe(() => {
+        PhotoStore.subscribe(() => {
             this.setState({})
         });
     }
 
-    componentDidMount() {
-    }
-
     _onDeleteClick(ev) {
-        photoStore.pDelete(this.props.photo)
+        PhotoStore.pDelete(this.props.photo)
             .then(()=>{
                 this.setState({});
             },
@@ -35,43 +30,43 @@ export default class PhotoDetailTable extends Component {
                 <tbody>
                     <tr>
                         <th>id</th>
-                        <td>{selectedPhoto.id}</td>
+                        <td>{photo.id}</td>
                     </tr>
                     <tr>
                         <th>description</th>
-                        <td>{selectedPhoto.description}</td>
+                        <td>{photo.description}</td>
                     </tr>
                     <tr>
                         <th>planId</th>
-                        <td>{selectedPhoto.planId}</td>
+                        <td>{photo.planId}</td>
                     </tr>
                     <tr>
                         <th>userId</th>
-                        <td>{selectedPhoto.userId}</td>
+                        <td>{photo.userId}</td>
                     </tr>
                     <tr>
                         <th>owner</th>
-                        <td>{selectedPhoto.owner}</td>
+                        <td>{photo.owner}</td>
                     </tr>
                     <tr>
                         <th>latitude</th>
-                        <td>{selectedPhoto.latitude}</td>
+                        <td>{photo.latitude}</td>
                     </tr>
                     <tr>
                         <th>longitude</th>
-                        <td>{selectedPhoto.longitude}</td>
+                        <td>{photo.longitude}</td>
                     </tr>
                     <tr>
                         <th>date</th>
-                        <td><Time value={selectedPhoto.date}/></td>
+                        <td><Time value={photo.date}/></td>
                     </tr>
                     <tr>
                         <th>created</th>
-                        <td><Time value={selectedPhoto.created}/></td>
+                        <td><Time value={photo.created}/></td>
                     </tr>
                     <tr>
                         <th>updated</th>
-                        <td><Time value={selectedPhoto.updated}/></td>
+                        <td><Time value={photo.updated}/></td>
                     </tr>
                     <tr>
                         <th>DELETE</th>
@@ -83,7 +78,7 @@ export default class PhotoDetailTable extends Component {
                             <img style={{
                                     maxWidth: '100%'
                                 }}
-                                src={selectedPhoto.url} />
+                                src={photo.url} />
                         </td>
                     </tr>
                 </tbody>

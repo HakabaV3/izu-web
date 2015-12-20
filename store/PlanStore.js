@@ -1,9 +1,11 @@
-import Store from './Store';
-import API from '../service/API';
+import Store from 'store/Store'
+import API from 'service/API'
 
-export default class PlanStore extends Store {
+self.PlanStore = null;
+export default new class extends Store {
 	constructor() {
 		super();
+		debugger
 		this.state = {
 			plans: new Map()
 		};

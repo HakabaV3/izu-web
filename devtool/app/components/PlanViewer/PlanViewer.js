@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 
 import PlanStore from 'store/PlanStore'
-import PhotoStore from 'store/PlanStore'
+import PhotoStore from 'store/PhotoStore'
 
 import PlanCreateForm from 'components/PlanCreateForm/PlanCreateForm'
 import PlanDetailTable from 'components/PlanDetailTable/PlanDetailTable'
-
-const planStore = PlanStore.getStore();
-const photoStore = PhotoStore.getStore();
 
 export default class PlanViewer extends Component {
     constructor() {
@@ -17,11 +14,9 @@ export default class PlanViewer extends Component {
             selectedPhotoId: null
         }
 
-        planStore.subscribe(() => {
-            if (!planStore.state.plans.get(this.state.selectedPlanId)) {
-                this.setState({
-                    selectedPlanId: planStore.state.plans.keys().next().value
-                });
+        PlanStore.subscribe(() => {
+            if (!PlanStore.state.plans.get(this.state.selectedPlanId)) {
+                this._selectPlan(PlanStore.state.plans.values().next().value)
             } else {
                 this.setState();
             }
@@ -29,14 +24,18 @@ export default class PlanViewer extends Component {
     }
 
     componentDidMount() {
-        planStore.pFetchAll()
+        PlanStore.pFetchAll();
     }
 
     _onPlanChange(ev) {
         let selectedPlanId = ev.target.value,
-            selectedPlan = planStore.state.plans.get(selectedPlanId)
+            selectedPlan = PlanStore.state.plans.get(selectedPlanId)
 
-        photoStore.pGetByPlan(selectedPlan)
+        this._selectPlan(selectedPlan);
+    }
+
+    _selectPlan(plan) {
+        PhotoStore.pGetByPlan(plan)
             .then(() => {
                 this.setState({});
             },
@@ -45,13 +44,13 @@ export default class PlanViewer extends Component {
             });
 
         this.setState({
-            selectedPlanId: selectedPlanId
+            selectedPlanId: plan.id
         });
     }
 
     _onPhotoChange(ev) {
         let selectedPhotoId = ev.target.value,
-            selectedPhoto = photoStore.state.photos.get(selectedPhotoId)
+            selectedPhoto = PhotoStore.state.photos.get(selectedPhotoId)
 
         this.setState({
             selectedPhotoId: selectedPhotoId
@@ -59,7 +58,7 @@ export default class PlanViewer extends Component {
     }
 
     _onDeleteClick(ev) {
-        planStore.pDelete(this.state.selectedPlanId)
+        PlanStore.pDelete(this.state.selectedPlanId)
             .then(()=>{
                 this.setState({});
             },
@@ -73,7 +72,7 @@ export default class PlanViewer extends Component {
     }
 
     render() {
-        let plans = Array.from(planStore.state.plans.values()),
+        let plans = Array.from(PlanStore.state.plans.values()),
             options = plans.map((plan) => {
                 return (
                     <option key={plan.id} value={plan.id}>
@@ -81,7 +80,7 @@ export default class PlanViewer extends Component {
                     </option>
                 )
             }),
-            selectedPlan = planStore.state.plans.get(this.state.selectedPlanId);
+            selectedPlan = PlanStore.state.plans.get(this.state.selectedPlanId);
 
         return (
             <div

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import AuthStore from 'store/AuthStore'
 
-const authStore = AuthStore.getStore();
-
 const State = {
     SLEEP: 'SLEEP',
     ACTIVE: 'ACTIVE',
@@ -15,7 +13,7 @@ export default class SignUpForm extends Component {
         this.state = {
             name: '',
             password: '',
-            state: authStore.state.isAuthorized ? State.AUTHORIZED : State.UNAUTHORIZED
+            state: AuthStore.state.isAuthorized ? State.AUTHORIZED : State.UNAUTHORIZED
         }
     }
 
@@ -36,7 +34,7 @@ export default class SignUpForm extends Component {
             state: State.ACTIVE
         });
 
-        authStore
+        AuthStore
             .pSignUp(this.state.name, this.state.password)
             .then(() => {
                 this.setState({
