@@ -1,6 +1,7 @@
 .PHONY: build
 
 build:
+	$(MAKE) build-app
 	$(MAKE) build-dev
 
 build-app:
