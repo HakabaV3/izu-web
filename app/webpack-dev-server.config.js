@@ -15,8 +15,7 @@ module.exports = {
 		modulesDirectories: [
 			PATH_NODE_MODULES,
 			path.join(__dirname, '../node_modules'),
-			path.join(__dirname, './src'),
-			path.join(__dirname, '../app/src')
+			path.join(__dirname, './src')
 		],
 	},
 	devtool: 'source-map',
@@ -39,7 +38,11 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: path.join(__dirname, './src/index.html')
 		}),
-		new webpack.NoErrorsPlugin()
+		new webpack.NoErrorsPlugin(),
+		new TransferWebpackPlugin([{
+			from: './images/',
+			to: './images'
+		}], path.join(__dirname, './src'))
 	],
 	module: {
 		loaders: [{

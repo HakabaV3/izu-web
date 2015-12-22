@@ -1,0 +1,122 @@
+@import "../../style/stylus/md-style.scss";
+
+.LoginPage {
+	background: url("/images/bg.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+
+	&.is-active {
+		.LoginPage__submit__text {
+			display: none;
+		}
+		.LoginPage__submit__loading {
+			display: block;
+		}
+	}
+	&.is-to-signUp {
+		.LoginPage__SignInForm {
+			animation: LoginPage__SignInForm__toSignUp 240ms $ease-slide forwards;
+		}
+		.LoginPage__SignUpForm {
+			animation: LoginPage__SignUpForm__toSignUp 240ms $ease-slide forwards;
+		}
+	}
+	&.is-signUp {
+		.LoginPage__SignInForm {
+			opacity: 0;
+		}
+		.LoginPage__SignUpForm {
+			opacity: 1;
+		}
+	}
+}
+.LoginPage__base {
+	@include md-elevation-card-pickedUp();
+	position: relative;
+	padding: $md-w-gutter-1 $md-w-gutter-2;
+	box-sizing: border-box;
+	overflow: hidden;
+	background: $md-white;
+	border-radius: 2px;
+	will-change: opacity;
+}
+.LoginPage__SignUpForm {
+	position: absolute;
+	top: $md-w-gutter-1;
+	display: block;
+	opacity: 0;
+	will-change: opacity;
+}
+.LoginPage__row {
+	margin: $md-w-gutter-1 0;
+}
+.LoginPage__submit {
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	border: none;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	min-height: 44px;
+	padding: 0 $md-w-gutter-2;
+	width: 100%;
+	cursor: pointer;
+	outline: none;
+	color: $md-primaryColor;
+}
+.LoginPage__submit__loading {
+	display: none;
+	position: relative;
+	width: 36px;
+	height: 36px;
+	animation: LangingPage__loading__rotate 1000ms linear infinite;
+	stroke: currentColor;
+}
+@keyframes LangingPage__loading__rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+.LoginPage__ShowSignInFormButton {
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	border: none;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	min-height: 44px;
+	padding: 0 $md-w-gutter-2;
+	width: 100%;
+	cursor: pointer;
+	outline: none;
+	color: $md-primaryColor;
+}
+@keyframes LoginPage__SignInForm__toSignUp {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes LoginPage__SignUpForm__toSignUp {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

@@ -1,0 +1,121 @@
+@import "../../style/stylus/md-style.scss";
+
+.Input {
+	font-size: $md-fontsize-body1;
+	line-height: $md-lineheight-body1;
+	position: relative;
+	display: inline-block;
+	box-sizing: border-box;
+	min-width: 280px;
+	cursor: text;
+	transition: border-bottom-color 0.1s linear;
+	vertical-align: bottom;
+	color: inherit;
+	border-bottom: 1px solid $md-grey-700;
+
+	&:hover {
+		border-bottom-color: $md-grey-900;
+	}
+	&[disabled] {
+		cursor: not-allowed;
+		color: $md-grey-300;
+		border-bottom-style: dashed;
+
+		&:hover {
+			border-bottom-color: $md-grey-300;
+		}
+	}
+	&.is-focusIn {
+		.Input__border {
+			animation: Input_focusIn_border 0.24s $ease-slide forwards;
+		}
+		.Input__label {
+			transform: translateY(0px);
+		}
+	}
+
+	&.is-focus {
+		.Input__border {
+			transform: scaleX(1);
+			opacity: 1;
+		}
+		.Input__label {
+			transform: translateY(0px);
+		}
+	}
+
+	&.is-focusOut {
+		.Input__border {
+			animation: Input_focusOut_border 0.3s $ease-slide forwards;
+		}
+	}
+
+	&:not(.is-empty) {
+		.Input__label {
+			transform: translateY(0px);
+		}
+	}
+}
+@keyframes Input_focusIn_border {
+	0% {
+		transform: scaleX(0);
+		opacity: 1;
+	}
+	100% {
+		transform: scaleX(1);
+		opacity: 1;
+	}
+}
+@keyframes Input_focusOut_border {
+	0% {
+		transform: scaleX(1);
+		opacity: 1;
+	}
+	100% {
+		transform: scaleX(1);
+		opacity: 0;
+	}
+}
+.Input__label {
+	font: inherit;
+	font-size: 0.875em;
+	position: absolute;
+	display: block;
+	transition: 0.2s $ease-slide;
+	transform: translateY(28px);
+	color: $md-grey-700;
+	will-change: transform;
+	z-index: 1;
+	padding: 0 $md-w-gutter-1;
+
+	&:empty {
+		display: none;
+	}
+}
+.Input__input {
+	font: inherit;
+	position: relative;
+	display: block;
+	width: 100%;
+	padding: 0;
+	cursor: inherit;
+	color: inherit;
+	border: none;
+	outline: none;
+	background: none;
+	padding: 28px $md-w-gutter-1 0;
+	box-sizing: border-box;
+}
+.Input__inner {
+	position: relative;
+}
+.Input__border {
+	position: absolute;
+	bottom: -1px;
+	width: 100%;
+	height: 2px;
+	transform: scaleX(0);
+	opacity: 0;
+	background: $md-primaryColor;
+	will-change: animation;
+}

@@ -14,10 +14,12 @@
 		"url": "https://github.com/hakaba/izu-web/issues"
 	},
 	"scripts": {
-		"start": "node server.js",
+		"start": "npm run-script app:start",
 		"test": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register --require",
 		"test:watch": "npm test -- --watch",
-		"dev:start": "webpack-dev-server --config webpack-dev-server.config.js --colors --inline",
+		"app:start": "webpack-dev-server --config ./app/webpack-dev-server.config.js --colors --inline",
+		"app:build": "webpack --config ./app/webpack.config.js --progress",
+		"dev:start": "webpack-dev-server --config ./devtool/webpack-dev-server.config.js --colors --inline",
 		"dev:build": "webpack --config ./devtool/webpack.config.js --progress"
 	},
 	"homepage": "https://github.com/hakaba/izu-web",

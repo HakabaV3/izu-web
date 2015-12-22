@@ -1,0 +1,156 @@
+@import "../../definitions/md-style.scss";
+
+.KNListPicker {
+	@include md-elevation-card();
+	@include md-font-body1();
+	position: relative;
+	width: 300px;
+	height: 40px;
+	padding: $md-w-gutter-1/2 $md-w-gutter-1;
+	display: inline-block;
+	background: $md-white;
+	box-sizing: border-box;
+	white-space: nowrap;
+	transition: box-shadow 240ms $ease-slide;
+	cursor: pointer;
+
+	&.is-open {
+		@include md-elevation-card-pickedUp();
+	}
+}
+.KNListPicker__entriesWrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+.KNListPicker__entries {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	flex-wrap: nowrap;
+	box-sizing: border-box;
+	padding-right: 40px;
+}
+.KNListPicker__iconBox {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(to right, rgba($md-white, 0), $md-white 50%, $md-white);
+
+	svg {
+		fill: currentColor;
+	}
+}
+.KNListPicker__selectedEntry {
+	display: inline-block;
+	background: $md-grey-200;
+	border-radius: 1em;
+	padding: 0 0.5em;
+	font-size: 0.875em;
+	line-height: 2;
+	margin: $md-w-gutter-1/2;
+}
+.KNListPickerOverlay {
+	@include md-font-body1();
+	position: absolute;
+	height: 300px;
+	border-top: 1px solid $md-grey-200;
+}
+.KNListPickerOverlay__base {
+	@include md-elevation-card-pickedUp();
+	z-index: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	will-change: transform;
+	background: $md-white;
+	transform-origin: top;
+}
+.KNListPickerOverlay__list {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	will-change: opacity;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.KNListPickerOverlay__listItem {
+	line-height: 48px;
+	min-height: 48px;
+	padding: 0 $md-w-gutter-2;
+	cursor: pointer;
+
+	&:hover {
+		background: $md-grey-50;
+	}
+	&.is-selected {
+		background: $md-blue-50;
+	}
+}
+.is-opening {
+	.KNListPickerOverlay__base {
+		animation: KNListPickerOverlay_open_base 240ms $ease-slide forwards;
+	}
+	.KNListPickerOverlay__list {
+		animation: KNListPickerOverlay_open_list 240ms $ease-slide forwards;
+	}
+}
+.is-closing {
+	.KNListPickerOverlay__base {
+		animation: KNListPickerOverlay_close_base 240ms $ease-slide forwards;
+	}
+	.KNListPickerOverlay__list {
+		animation: KNListPickerOverlay_close_list 240ms $ease-slide forwards;
+	}
+}
+@keyframes KNListPickerOverlay_open_base {
+	0% {
+		transform: scaleY(0);
+	}
+	100% {
+		transform: scaleY(1);
+	}
+}
+@keyframes KNListPickerOverlay_close_base {
+	0% {
+		transform: scaleY(1);
+	}
+	100% {
+		transform: scaleY(0);
+	}
+}
+@keyframes KNListPickerOverlay_open_list {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes KNListPickerOverlay_close_list {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}

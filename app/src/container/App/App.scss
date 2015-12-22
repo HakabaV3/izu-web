@@ -1,0 +1,49 @@
+@import "../../style/stylus/md-style.scss";
+
+.App {
+	@include md-font-body1();
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	align-items: stretch;
+	justify-content: center;
+}
+.App__pagerWrapper {
+	position: relative;
+	flex: 1;
+	overflow: scroll;
+}
+.dev {
+	position: relative;
+	max-width: 100%;
+	display: block;
+	margin: 16px;
+	padding: 0 8px;
+	box-sizing: border-box;
+	border: 1px solid #000;
+
+	h3,
+	p {
+		margin: 8px 0;
+	}
+
+	table,
+	tbody {
+		display: block;
+		position: relative;
+		max-width: 100%;
+	}
+	th {
+		text-align: left;
+		white-space: nowrap;
+	}
+	td {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}

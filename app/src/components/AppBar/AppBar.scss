@@ -1,0 +1,54 @@
+@import "../../style/stylus/md-style.scss";
+$foreground: $md-primaryTextColor;
+$background: $md-primaryColor;
+
+.AppBar {
+	@include md-elevation-appBar();
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	color: $foreground;
+	background: $background;
+	align-items: center;
+	justify-content: center;
+}
+
+@mixin container() {
+	display: flex;
+	flex-direction: row;
+	box-sizing: border-box;
+	height: $md-h-appBar;
+	align-items: center;
+
+	&::content {
+		paper-button {
+			width: 48px;
+			min-width: 0;
+			height: 48px;
+			border-radius: 50%;
+		}
+	}
+}
+.AppBar__leftContainer {
+	@include container();
+	box-sizing: border-box;
+	width: $md-w-appBar-padding-title;
+	justify-content: flex-start;
+}
+.AppBar__title {
+	font-size: $md-fontsize-title;
+	font-weight: $md-fontweight-light;
+	line-height: $md-h-appBar;
+	margin: 0;
+	text-decoration: none;
+	color: $foreground;
+	flex: 1;
+}
+.AppBar__childContainer {
+	@include container();
+	flex: 1;
+}
+.AppBar__rightContainer {
+	@include container();
+	justify-content: flex-end;
+}
