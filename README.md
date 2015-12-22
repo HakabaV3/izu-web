@@ -2,25 +2,23 @@
 
 izuのweb、およびツール
 
+## DevTool
 
-## 使用方法
+開発用にお使いください。
 
-1. 初回のみ
-
-```bash
-$ npm install #めっちゃ時間かかるよ！！！
-```
-
-アプリ本体（つまり、リポジトリのルートディレクトリ）でも、 `npm install` をしておくこと。
-
-2. 起動
+### ビルド
 
 ```bash
-$ npm start  # listen on localhost:3000
+$ make build-dev
 ```
 
-または、ポートを指定して
+### 閲覧方法
 
-```bash
-$ PORT=3001 npm start  # listen on localhost:3001
-```
+動的なhttpサーバーを立てる必要ないです。
+
+`./devtool/build/www` が見られるようにプロキシを設定してください。
+
+nginxの場合、 `./devtool/izu-web.conf` を少し変えて `/etc/nginx/conf.d` に置けば上手く動くと思う。
+
+1. `HOST_NAME` をホスト名に(例: `izu-devtool.hakaba.xyz` )
+2. `PATH_TO_THIS_PROJECT` を、このプロジェクトフォルダへのパスに(例: `/home/hakaba/izu-web` )
