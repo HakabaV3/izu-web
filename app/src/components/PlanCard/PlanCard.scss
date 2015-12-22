@@ -1,0 +1,36 @@
+@import "../../style/stylus/md-style.scss";
+
+.PlanCard {
+	@include md-elevation-card();
+	padding: $md-w-gutter-1 0;
+	background: $md-white;
+	margin: $md-w-gutter-1;
+	box-sizing: border-box;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	width: 320px;
+	height: 240px;
+	position: relative;
+}
+.PlanCard__header {
+	@include md-font-body1($md-white);
+	padding: $md-w-gutter-1 $md-w-gutter-2;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	box-sizing: border-box;
+	background: linear-gradient(rgba($md-black, 0), rgba($md-black, 0.5));
+}
+.PlanCard__title {
+	font-weight: bold;
+	margin: $md-w-gutter-1 0 0;
+}
+.PlanCard__ownerRow {
+	margin: 0 0 $md-w-gutter-1;
+	@include md-font-caption($md-white);
+}
+.PlanCard__owner {
+	font-weight: bold;
+}

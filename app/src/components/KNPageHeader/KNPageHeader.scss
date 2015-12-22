@@ -1,0 +1,10 @@
+@import "../../definitions/md-style.scss";
+
+.KNPageHeader {
+	@include md-font-body1();
+	height: 64px;
+	line-height: 64px;
+	padding: 0 $md-w-gutter-2;
+	border-bottom: 1px solid $md-grey-200;
+	box-sizing: border-box;
+}

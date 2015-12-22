@@ -15,7 +15,7 @@ module.exports = {
 		modulesDirectories: [
 			PATH_NODE_MODULES,
 			path.join(__dirname, './src'),
-			path.join(__dirname, '../')
+			path.join(__dirname, '../app/src')
 		],
 	},
 	output: {

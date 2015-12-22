@@ -1,0 +1,42 @@
+@import "../../style/stylus/md-style.scss";
+
+.Pager__Inner {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	will-change: opacity;
+
+	> * {
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+		box-sizing: border-box;
+		padding: $md-w-gutter-2 0;
+	}
+
+	&.is-fadeIn {
+		animation: Pager_fadeIn_Inner 300ms $ease-slide forwards;
+	}
+	&.is-fadeOut {
+		animation: Pager_fadeOut_Inner 300ms $ease-slide forwards;
+	}
+}
+
+@keyframes Pager_fadeIn_Inner {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes Pager_fadeOut_Inner {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}

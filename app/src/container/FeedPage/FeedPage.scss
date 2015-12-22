@@ -1,0 +1,27 @@
+@import "../../style/stylus/md-style.scss";
+
+.FeedPage {
+	background: $md-white;
+}
+.FeedPage__Section {
+	margin: $md-w-gutter-1 $md-w-gutter-3;
+	border-bottom: 1px solid $md-grey-200;
+}
+.FeedPage__SectionTitleHeader {
+	margin: $md-w-gutter-1 0;
+	padding: 0;
+
+	> h3 {
+		@include md-font-body1($md-orange-700);
+		font-size: 1.5em;
+		margin: 0;
+	}
+}
+.FeedPage__PlanCardList {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	padding: 0;
+	justify-content: center;
+	margin: $md-w-gutter-1 auto;
+}

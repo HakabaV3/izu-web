@@ -1,0 +1,88 @@
+@import "../../definitions/md-style.scss";
+
+.KNDropDownMenu {
+	position: relative;
+	display: inline-block;
+	line-height: 40px;
+	height: 40px;
+	border-bottom: 1px solid $md-grey-400;
+	min-width: 120px;
+	cursor: pointer;
+}
+.KNDropDownMenu__text {
+	white-space: nowrap;
+}
+.KNDropDownMenu__iconBox {
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	right: -16px;
+	top: 0;
+	bottom: 0;
+	width: 40px;
+
+	> svg {
+		fill: $md-grey-400;
+	}
+}
+.KNDropDownMenuOverlay__base {
+	@include md-elevation-card();
+	background: $md-white;
+	position: absolute;
+	padding: $md-w-gutter-1 0;
+	left: -$md-w-gutter-2;
+	top: -$md-w-gutter-1;
+	will-change: opacity, transform;
+}
+.KNDropDownMenuOverlay__list {
+	position: relative;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	line-height: 40px;
+	min-height: 40px;
+	height: 200px;
+	min-width: 120px;
+}
+.KNDropDownMenuOverlay__item {
+	display: block;
+	line-height: 40px;
+	white-space: nowrap;
+	padding: 0 $md-w-gutter-2;
+
+	&:hover {
+		background: $md-grey-50;
+	}
+}
+.is-opening {
+	.KNDropDownMenuOverlay__base {
+		animation: KNDropDownMenuOverlay_opening_base 240ms $ease-slide forwards;
+	}
+}
+.is-closing {
+	.KNDropDownMenuOverlay__base {
+		animation: KNDropDownMenuOverlay_closing_base 240ms $ease-slide forwards;
+	}
+}
+@keyframes KNDropDownMenuOverlay_opening_base {
+	0% {
+		opacity: 0;
+		transform: scaleY(0);
+	}
+	100% {
+		opacity: 1;
+		transform: scaleY(1);
+	}
+}
+@keyframes KNDropDownMenuOverlay_closing_base {
+	0% {
+		opacity: 1;
+		transform: scaleY(1);
+	}
+	100% {
+		opacity: 0;
+		transform: scaleY(0);
+	}
+}

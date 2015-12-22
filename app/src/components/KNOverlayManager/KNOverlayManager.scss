@@ -1,0 +1,35 @@
+@import "../../definitions/md-style.scss";
+
+.KNOverlayManager {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: $md-z-overlay;
+
+	&.is-show {
+		display: block;
+	}
+}
+.KNOverlayManager__item {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+
+	&.is-opening {
+		display: block;
+	}
+	&.is-open {
+		display: block;
+	}
+	&.is-closing {
+		display: block;
+	}
+	&.is-close {
+		display: none;
+	}
+}
