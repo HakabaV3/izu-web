@@ -1,24 +1,26 @@
 {
-	"name": "web-console",
+	"name": "izu-web",
 	"version": "0.0.1",
-	"description": "web console for air-radar",
+	"description": "IZU IS IZU",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/kaonashi-io/web-console.git"
+		"url": "https://github.com/hakaba/izu-web.git"
 	},
 	"author": [{
 		"name": "Kikurage",
 		"email": "y.kikura@gmail.com"
 	}],
 	"bugs": {
-		"url": "https://github.com/kaonashi-io/web-console/issues"
+		"url": "https://github.com/hakaba/izu-web/issues"
 	},
 	"scripts": {
 		"start": "node server.js",
 		"test": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register --require",
-		"test:watch": "npm test -- --watch"
+		"test:watch": "npm test -- --watch",
+		"dev:start": "webpack-dev-server --config webpack-dev-server.config.js --colors --inline",
+		"dev:build": "webpack --config ./devtool/webpack.config.js --progress"
 	},
-	"homepage": "https://github.com/kaonashi-io/web-console",
+	"homepage": "https://github.com/hakaba/izu-web",
 	"devDependencies": {
 		"autoprefixer-loader": "^3.1.0",
 		"babel-core": "^6.3.21",

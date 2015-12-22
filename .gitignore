@@ -1,5 +1,7 @@
 node_modules/
 bower_components/
-build/
+
 *.log
-izu.jpg
+
+devtool/build/
+build/

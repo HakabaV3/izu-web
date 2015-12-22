@@ -4,7 +4,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var TransferWebpackPlugin = require('transfer-webpack-plugin');
 
 const PATH_BUILD = path.resolve(__dirname, './build/www');
-const PATH_NODE_MODULES = path.resolve(__dirname, './node_modules');
+const PATH_NODE_MODULES = path.resolve(__dirname, '../node_modules');
 
 module.exports = {
 	entry: [
@@ -14,30 +14,27 @@ module.exports = {
 		extensions: ['', '.js', '.jsx'],
 		modulesDirectories: [
 			PATH_NODE_MODULES,
-			path.join(__dirname, '../node_modules'),
 			path.join(__dirname, './src'),
 			path.join(__dirname, '../')
 		],
 	},
-	devtool: 'source-map',
-	devServer: {
-		contentBase: PATH_BUILD,
-		inline: true,
-		hot: false,
-		port: process.env.PORT || 3000
-	},
 	output: {
 		path: PATH_BUILD,
-		filename: 'src.js',
+		filename: 'app.js',
 	},
 	plugins: [
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false
+			}
+		}),
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production')
 			}
 		}),
 		new HtmlWebpackPlugin({
-			template: path.join(__dirname, './www/index.html')
+			template: path.join(__dirname, './src/index.html')
 		}),
 		new webpack.NoErrorsPlugin()
 	],
