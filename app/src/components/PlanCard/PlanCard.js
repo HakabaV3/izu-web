@@ -17,10 +17,18 @@ export default class PlanCard extends Component {
 						{plan.title}
 					</h3>
 					<p className="PlanCard__ownerRow">
-						created by <span className="PlanCard__owner">{plan.owner}</span>
+						created by
+						&nbsp;<span className="PlanCard__owner">{plan.owner}</span>&nbsp;
+						on
+						&nbsp;<span className="PlanCard__created">{formatDate(plan.created)}</span>&nbsp;
 					</p>
                 </header>
             </div>
 		);
 	}
+}
+
+function formatDate(datenum){
+	let d = new Date(datenum)
+	return `${d.getFullYear()}/${('0'+(d.getMonth()+1)).substr(-2)}/${('0'+d.getDate()).substr(-2)}`;
 }

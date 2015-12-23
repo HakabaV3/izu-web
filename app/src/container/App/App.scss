@@ -47,3 +47,21 @@
 		text-overflow: ellipsis;
 	}
 }
+.App_LogOutButton {
+	@include md-font-button($md-primaryTextColor);
+	border: none;
+	background: none;
+	outline: none;
+	cursor: pointer;
+	padding: 0 $md-w-gutter-2;
+	line-height: 64px;
+	height: 64px;
+
+	&:hover,
+	&:focus {
+		background: rgba($md-white, 0.1);
+	}
+	&:active {
+		background: rgba($md-white, 0.3);
+	}
+}

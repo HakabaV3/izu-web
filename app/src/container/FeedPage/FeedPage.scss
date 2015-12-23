@@ -1,14 +1,16 @@
 @import "../../style/stylus/md-style.scss";
 
 .FeedPage {
-	background: $md-white;
+	background: $md-grey-50;
 }
 .FeedPage__Section {
+	@include md-elevation-card();
 	margin: $md-w-gutter-1 0;
-	border-bottom: 1px solid $md-grey-200;
+	padding: 1px $md-w-gutter-2;
+	background: $md-white;
 }
 .FeedPage__SectionTitleHeader {
-	margin: $md-w-gutter-1 0;
+	margin: $md-w-gutter-2 0;
 	padding: 0;
 
 	> h3 {

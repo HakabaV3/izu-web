@@ -60,6 +60,9 @@ export default class Input extends Component {
         this.setState({
             value: ev.target.value
         });
+        if (typeof this.props.onChange === 'function') {
+            this.props.onChange(ev);
+        }
     }
 
     render() {
