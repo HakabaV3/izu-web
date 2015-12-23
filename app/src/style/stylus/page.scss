@@ -1,0 +1,31 @@
+@import "./md-style.scss";
+$w-Page__Wrapper: 960px;
+$w-Page__MainColumn: $w-Page__Wrapper*3/6 - $md-w-gutter-2*2;
+$w-Page__SideColumn1: $w-Page__Wrapper*1/6 - $md-w-gutter-2;
+$w-Page__SideColumn2: $w-Page__Wrapper*2/6 - $md-w-gutter-2;
+
+.Page__Wrapper {
+	display: flex;
+	position: relative;
+	flex-direction: row;
+	align-items: flex-start;
+	width: $w-Page__Wrapper;
+	margin: 0 auto;
+}
+.Page__MainColumn {
+	position: relative;
+	width: $w-Page__MainColumn;
+	padding: 0 $md-w-gutter-2;
+	border-left: 1px solid $md-grey-200;
+	border-right: 1px solid $md-grey-200;
+}
+.Page__SideColumn1 {
+	position: relative;
+	width: $w-Page__SideColumn1;
+	margin: 0 $md-w-gutter-2 0 0;
+}
+.Page__SideColumn2 {
+	position: relative;
+	width: $w-Page__SideColumn2;
+	margin: 0 0 0 $md-w-gutter-2;
+}
