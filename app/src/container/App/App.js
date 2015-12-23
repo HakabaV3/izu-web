@@ -10,7 +10,6 @@ import Pager from 'components/Pager/Pager'
 
 import LoginPage from 'container/LoginPage/LoginPage'
 import FeedPage from 'container/FeedPage/FeedPage'
-import PlanCreatePage from 'container/PlanCreatePage/PlanCreatePage'
 
 const APP_TITLE = '旅ログ';
 
@@ -55,14 +54,15 @@ export default class App extends Component {
 				<AppShell
 					sideNavDisabled={!AuthStore.state.isAuthorized}
 					appBarRight={[
-						<button onClick={(ev) => this._onPlanCreateButtonClick(ev)}>プラン新規作成</button>,
-						<button onClick={(ev) => this._onLogoutButtonClick(ev)}>ログアウト</button>
+						<button className="App_LogOutButton"
+							onClick={(ev) => this._onLogoutButtonClick(ev)}>
+							ログアウト
+						</button>
 					]}
 					title={APP_TITLE}>
 					<Pager selected={this.state.pageId}>
 						<LoginPage pageId="login"></LoginPage>
 						<FeedPage pageId="feed"></FeedPage>
-						<PlanCreatePage pageId="planCreate"></PlanCreatePage>
 					</Pager>
 				</AppShell>
             </div>

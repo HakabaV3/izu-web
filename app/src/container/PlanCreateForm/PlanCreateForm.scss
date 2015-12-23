@@ -1,47 +1,59 @@
 @import "../../style/stylus/md-style.scss";
 
-.PlanCreatePage {
+.PlanCreateForm {
+	display: block;
+	position: relative;
 	background: $md-white;
 
 	&.is-dragEnter {
-		.PlanCreatePage__DDReceiver {
+		.PlanCreateForm__DDReceiver {
 			display: flex;
 		}
 	}
 }
-.PlanCreatePage__Inner {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: stretch;
-	@media #{$md-query-mobile} {
-		display: block;
-	}
+.PlanCreateForm__Inner {
+	position: relative;
+	display: block;
 }
-.PlanCreatePage__Section {
-	padding: $md-w-gutter-2;
+.PlanCreateForm__Section {
+	margin: $md-w-gutter-2 0;
 	box-sizing: border-box;
-	border-bottom: 1px solid $md-grey-200;
 	display: flex;
 	flex-direction: column;
 	flex-shrink: 0;
 }
-.PlanCreatePage__Section--flex {
+.PlanCreateForm__Section {
 	flex: 1;
 }
-.PlanCreatePage__SectionHeader {
+.PlanCreateForm__SectionHeader {
 	@include md-font-subhead();
 	margin: $md-w-gutter-1 0;
 }
-.PlanCreatePage__SectionSubHeader {
+.PlanCreateForm__SectionSubHeader {
 	@include md-font-caption($md-grey-800);
 	margin: $md-w-gutter-1 0;
 }
-.PlanCreatePage__PhotoList {
+.PlanCreateForm__Row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	background: $md-white;
+
+	> .Input {
+		flex: 1;
+	}
+}
+.PlanCreateForm__PhotoList--placeholder {
+	display: block;
+	position: relative;
+	height: 36px;
+	line-height: 36px;
+	margin: 0 auto;
+	background: $md-white;
+	text-align: center;
+	z-index: 1;
+}
+.PlanCreateForm__PhotoList {
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
@@ -49,46 +61,42 @@
 	align-content: flex-start;
 	position: relative;
 	flex: 1;
-	margin: $md-w-gutter-1 0;
-	padding: 0;
+	margin: -$md-w-gutter-2 0 $md-w-gutter-1;
+	padding: $md-w-gutter-2 0 0;
 	list-style: none;
 	overflow: scroll;
-	padding: 0;
 	box-sizing: border-box;
 }
-.PlanCreatePage__PhotoItem {
+.PlanCreateForm__PhotoItem {
 	display: block;
 	position: relative;
-	width: 12.5%;
+	width: 25%;
 	height: 120px;
 	padding: 2px;
 	box-sizing: border-box;
 	cursor: pointer;
 
-	@media (max-width: 780px) {
-		width: 16.6666666%;
-	}
 	@media (max-width: 600px) {
-		width: 20%;
+		width: 40%;
 	}
 	@media (max-width: 480px) {
-		width: 25%;
+		width: 50%;
 	}
 	&.is-selected {
-		.PlanCreatePage__PhotoImage {
+		.PlanCreateForm__PhotoImage {
 			border: 5px solid $md-blue-600;
 			transform: scale(0.9);
 		}
-		.PlanCreatePage__RemoveIcon {
+		.PlanCreateForm__RemoveIcon {
 			fill: $md-white;
 			opacity: 1;
 		}
-		.PlanCreatePage__RemoveIconBackground {
+		.PlanCreateForm__RemoveIconBackground {
 			fill: $md-blue-600;
 		}
 	}
 }
-.PlanCreatePage__PhotoItemBase {
+.PlanCreateForm__PhotoItemBase {
 	position: absolute;
 	top: 2px;
 	left: 2px;
@@ -96,7 +104,7 @@
 	bottom: 2px;
 	background-color: $md-grey-200;
 }
-.PlanCreatePage__PhotoImage {
+.PlanCreateForm__PhotoImage {
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -108,7 +116,7 @@
 	transition: transform 200ms $ease-slide;
 	will-change: transform;
 }
-.PlanCreatePage__RemoveIcon {
+.PlanCreateForm__RemoveIcon {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -121,55 +129,38 @@
 		opacity: 1;
 		fill: $md-white;
 
-		.PlanCreatePage__RemoveIconBackground {
+		.PlanCreateForm__RemoveIconBackground {
 			fill: $md-blue-600;
 		}
 	}
 }
-.PlanCreatePage__RemoveIconBackground {
+.PlanCreateForm__RemoveIconBackground {
 	fill: none;
 	transition: fill 200ms $ease-slide;
 }
-.PlanCreatePage__Row {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	background: $md-white;
-
-	> .Input {
-		flex: 1;
-	}
-	@media #{$md-query-mobile} {
-		display: block;
-
-		> .Input {
-			display: block;
-			width: 100%;
-		}
-	}
-}
-.PlanCreatePage__SubmitButton {
+.PlanCreateForm__SubmitButton {
 	@include md-elevation-card();
 	@include md-font-button();
 	background: $md-primaryColor;
 	color: $md-primaryTextColor;
 	padding: $md-w-gutter-1 $md-w-gutter-2;
-	line-height: 44px;
-	min-height: 44px;
-	min-width: 88px;
+	line-height: 40px;
+	min-height: 40px;
+	min-width: 80px;
 	box-sizing: border-box;
 	border: none;
 	border-radius: 2px;
 	cursor: pointer;
 	margin-left: $md-w-gutter-1;
+	transition: box-shadow 240ms $ease-slide,
+	background 240ms $ease-slide;
 
-	@media #{$md-query-mobile} {
-		display: block;
-		width: 100%;
-		margin: $md-w-gutter-2 0;
+	&[disabled] {
+		background: $md-grey-400;
+		box-shadow: md-shadow(0);
 	}
 }
-.PlanCreatePage__DDReceiver {
+.PlanCreateForm__DDReceiver {
 	@include md-font-d1($md-grey-800);
 	display: none;
 	position: fixed;

@@ -18,16 +18,19 @@
 	background: $md-white;
 }
 .AppShell__sideToggleButton {
-	background: none;
+	@include md-font-button($md-primaryTextColor);
+	position: relative;
 	border: none;
-	color: inherit;
-	cursor: pointer;
-	width: 64px;
-	height: 48px;
+	background: none;
 	outline: none;
+	cursor: pointer;
 	padding: 0;
-
+	line-height: 64px;
+	height: 64px;
+	width: 64px;
 	svg {
+		display: inline-block;
+		vertical-align: middle;
 		width: 24px;
 		height: 24px;
 		fill: currentColor;
