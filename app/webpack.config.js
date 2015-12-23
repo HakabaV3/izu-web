@@ -35,7 +35,11 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: path.join(__dirname, './src/index.html')
 		}),
-		new webpack.NoErrorsPlugin()
+		new webpack.NoErrorsPlugin(),
+		new TransferWebpackPlugin([{
+			from: './images/',
+			to: './images'
+		}], path.join(__dirname, './src'))
 	],
 	module: {
 		loaders: [{
