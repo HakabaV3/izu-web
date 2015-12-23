@@ -30,6 +30,7 @@ export default class AppShell extends Component {
                             </svg>
                         </button>
                     }
+                    right={this.props.appBarRight}
                     title={this.props.pageTitle || this.props.title} />
                 <div className="AppShell__body">
                     {this.props.children}

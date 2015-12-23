@@ -5,6 +5,8 @@ import classNames from 'classnames'
 
 import Input from 'components/Input/Input'
 
+import AuthStore from 'store/AuthStore'
+
 const State = {
     SIGN_IN: 0,
     TO_SIGN_UP: 1,
@@ -123,7 +125,7 @@ export default class LoginPage extends Component {
                             value={this.state.username}
                             type="text"
                             label="username"
-                            ref="username" />
+                            ref="username2" />
                     </div>
                     <div className="LoginPage__row">
                         <Input
@@ -131,7 +133,7 @@ export default class LoginPage extends Component {
                             value={this.state.password}
                             type="password"
                             label="password"
-                            ref="password" />
+                            ref="password2" />
                     </div>
                     <div className="LoginPage__row">
                         <button className="LoginPage__submit"

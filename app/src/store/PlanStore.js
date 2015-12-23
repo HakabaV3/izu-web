@@ -1,7 +1,6 @@
 import Store from 'store/Store'
 import API from 'service/API'
 
-self.PlanStore = null;
 export default new class extends Store {
 	constructor() {
 		super();
@@ -82,8 +81,8 @@ export default new class extends Store {
 			.then((data) => {
 				if (data.status !== 200) return Promise.reject(data.result);
 
-				const plan = data.result.plan;
-				this.state.plans.set(plan.id, formatPlan(plan));
+				const plan = formatPlan(data.result.plan);
+				this.state.plans.set(plan.id, plan);
 				this.dispatch();
 
 				return plan;

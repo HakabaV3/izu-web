@@ -1,15 +1,16 @@
 @import "../../style/stylus/md-style.scss";
+@import "../../style/stylus/page.scss";
 
 .PlanCard {
 	@include md-elevation-card();
 	padding: $md-w-gutter-1 0;
 	background: $md-white;
-	margin: $md-w-gutter-1;
+	margin: $md-w-gutter-1 0;
 	box-sizing: border-box;
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
-	width: 320px;
+	width: $w-Page__MainColumn;
 	height: 240px;
 	position: relative;
 }

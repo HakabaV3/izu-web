@@ -7,11 +7,11 @@
 	width: 100%;
 	height: 100%;
 	will-change: opacity;
+	overflow: auto;
 
 	> * {
-		width: 100%;
-		height: 100%;
-		overflow: auto;
+		min-width: 100%;
+		min-height: 100%;
 		box-sizing: border-box;
 		padding: $md-w-gutter-2 0;
 	}
