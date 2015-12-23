@@ -45,14 +45,19 @@ export default class App extends Component {
 		});
 	}
 
+	_onLogoutButtonClick(ev) {
+		AuthStore.signOut();
+	}
+
 	render() {
 		return (
             <div className="App">
 				<AppShell
 					sideNavDisabled={!AuthStore.state.isAuthorized}
-					appBarRight={
-						<button onClick={(ev) => this._onPlanCreateButtonClick(ev)}>プラン新規作成</button>
-					}
+					appBarRight={[
+						<button onClick={(ev) => this._onPlanCreateButtonClick(ev)}>プラン新規作成</button>,
+						<button onClick={(ev) => this._onLogoutButtonClick(ev)}>ログアウト</button>
+					]}
 					title={APP_TITLE}>
 					<Pager selected={this.state.pageId}>
 						<LoginPage pageId="login"></LoginPage>
