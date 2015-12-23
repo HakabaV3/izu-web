@@ -33,7 +33,6 @@ export default class LoginPage extends Component {
 
 		AuthStore.pSignIn(this.refs.username.value, this.refs.password.value)
 			.then(d => {
-				console.log(d);
 				this.setState({
 					isActive: false
 				});
