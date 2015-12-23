@@ -1,4 +1,5 @@
 import './FeedPage.scss'
+import '../../style/stylus/Page.scss'
 
 import React, { Component } from 'react'
 import classNames from 'classnames'
@@ -30,16 +31,26 @@ export default class FeedPage extends Component {
         let items = Array.from(PlanStore.state.plans.values()).map(plan => <PlanCard plan={plan} />);
 
         return (<div className={classNames({
-            'FeedPage': true,
+            'FeedPage': true
         })}>
-        <section className="FeedPage__Section">
-            <header className="FeedPage__SectionTitleHeader">
-                <h3>新着プラン</h3>
-            </header>
-            <ul className="FeedPage__PlanCardList">
-                {items}
-            </ul>
-        </section>
+            <div className="Page__Wrapper">
+                <div className="Page__SideColumn1">
+                    &nbsp;
+                </div>
+                <div className="Page__MainColumn">
+                    <section className="FeedPage__Section">
+                        <header className="FeedPage__SectionTitleHeader">
+                            <h3>新着プラン</h3>
+                        </header>
+                        <ul className="FeedPage__PlanCardList">
+                            {items}
+                        </ul>
+                    </section>
+                </div>
+                <div className="Page__SideColumn2">
+                    &nbsp;
+                </div>
+            </div>
         </div>)
     }
 }

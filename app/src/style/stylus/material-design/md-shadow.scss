@@ -5,51 +5,51 @@
 @function md-z($z) {
 	@return ($z - 1)*100;
 }
-$md-z-overlay: md-z(99) !default;
-$md-z-dialog: md-z(24) !default;
-$md-z-picker: md-z(24) !default;
-$md-z-navDrawer: md-z(16) !default;
-$md-z-rightDrawer: md-z(16) !default;
-$md-z-bottomSheet: md-z(16) !default;
-$md-z-fab-pressed: md-z(12) !default;
-$md-z-submenu: md-z(9) !default;
-$md-z-menu: md-z(8) !default;
-$md-z-card-pickedUp: md-z(8) !default;
-$md-z-raisedButton-pushed: md-z(8) !default;
-$md-z-appBar: md-z(3) !default;
-$md-z-fab: md-z(6) !default;
-$md-z-snackBar: md-z(6) !default;
-$md-z-refreshIndicator: md-z(3) !default;
-$md-z-searchBar-scrolled: md-z(3) !default;
-$md-z-card: md-z(2) !default;
-$md-z-raisedButton: md-z(2) !default;
-$md-z-searchBar: md-z(2) !default;
-$md-z-switch: md-z(1) !default;
+$md-z-overlay: md-z(99);
+$md-z-dialog: md-z(24);
+$md-z-picker: md-z(24);
+$md-z-navDrawer: md-z(16);
+$md-z-rightDrawer: md-z(16);
+$md-z-bottomSheet: md-z(16);
+$md-z-fab-pressed: md-z(12);
+$md-z-submenu: md-z(9);
+$md-z-menu: md-z(8);
+$md-z-card-pickedUp: md-z(8);
+$md-z-raisedButton-pushed: md-z(8);
+$md-z-appBar: md-z(3);
+$md-z-fab: md-z(6);
+$md-z-snackBar: md-z(6);
+$md-z-refreshIndicator: md-z(3);
+$md-z-searchBar-scrolled: md-z(3);
+$md-z-card: md-z(2);
+$md-z-raisedButton: md-z(2);
+$md-z-searchBar: md-z(2);
+$md-z-switch: md-z(1);
 
 //shadow
 //@see https://www.google.com/design/spec/what-is-material/elevation-shadows.html#elevation-shadows-shadows
 @function md-shadow($z) {
-	@return 0px 0.5px*$z 0.5px*$z rgba($md-black, 0.3);
+	@return 0px 1px*$z 3px*$z 0px rgba($md-black, 0.2);
 }
-$md-shadow-dialog: md-shadow(24) !default;
-$md-shadow-picker: md-shadow(24) !default;
-$md-shadow-navDrawer: md-shadow(16) !default;
-$md-shadow-rightDrawer: md-shadow(16) !default;
-$md-shadow-bottomSheet: md-shadow(16) !default;
-$md-shadow-fab-pressed: md-shadow(12) !default;
-$md-shadow-submenu: md-shadow(9) !default;
-$md-shadow-menu: md-shadow(8) !default;
-$md-shadow-card-pickedUp: md-shadow(8) !default;
-$md-shadow-raisedButton-pushed: md-shadow(8) !default;
-$md-shadow-appBar: md-shadow(3) !default;
-$md-shadow-fab: md-shadow(6) !default;
-$md-shadow-snackBar: md-shadow(6) !default;
-$md-shadow-refreshIndicator: md-shadow(3) !default;
-$md-shadow-searchBar-scrolled: md-shadow(3) !default;
-$md-shadow-card: md-shadow(2) !default;
-$md-shadow-raisedButton: md-shadow(2) !default;
-$md-shadow-searchBar: md-shadow(2) !default;
-$md-shadow-switch: md-shadow(1) !default;
+$md-shadow-dialog: md-shadow(24);
+$md-shadow-picker: md-shadow(24);
+$md-shadow-navDrawer: md-shadow(16);
+$md-shadow-rightDrawer: md-shadow(16);
+$md-shadow-bottomSheet: md-shadow(16);
+$md-shadow-fab-pressed: md-shadow(12);
+$md-shadow-submenu: md-shadow(9);
+$md-shadow-menu: md-shadow(8);
+$md-shadow-card-pickedUp: md-shadow(8);
+$md-shadow-raisedButton-pushed: md-shadow(8);
+$md-shadow-appBar: md-shadow(3);
+$md-shadow-fab: md-shadow(6);
+$md-shadow-snackBar: md-shadow(6);
+$md-shadow-refreshIndicator: md-shadow(3);
+$md-shadow-searchBar-scrolled: md-shadow(3);
+$md-shadow-card: md-shadow(2);
+$md-shadow-raisedButton: md-shadow(2);
+$md-shadow-searchBar: md-shadow(2);
+$md-shadow-switch: md-shadow(1);
 @mixin md-elevation-dialog() {
 	z-index: $md-z-dialog;
 	box-shadow: $md-shadow-dialog;

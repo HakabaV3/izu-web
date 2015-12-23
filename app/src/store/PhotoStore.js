@@ -1,6 +1,6 @@
 import Store from 'store/Store'
 import API from 'service/API'
-// import PlanStore from 'store/PlanStore'
+import PlanStore from 'store/PlanStore'
 
 export default new class extends Store {
 	constructor() {
@@ -81,9 +81,7 @@ export default new class extends Store {
 				const photo = data.result.photo;
 				this.state.photos.set(photo.id, formatPhoto(photo));
 				plan.photos.push(photo);
-
-				//@TODO 応急処理
-				self.PlanStore.dispatch();
+				PlanStore.dispatch();
 				this.dispatch();
 
 				return photo;
@@ -126,7 +124,7 @@ export default new class extends Store {
 				this.dispatch();
 
 				//@TODO 応急処理
-				this.pFetchByPlan(self.PlanStore.state.plans.get(photo.planId));
+				this.pFetchByPlan(PlanStore.state.plans.get(photo.planId));
 
 				return photo;
 			});

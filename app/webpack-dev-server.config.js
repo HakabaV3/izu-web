@@ -27,7 +27,7 @@ module.exports = {
 	},
 	output: {
 		path: PATH_BUILD,
-		filename: 'src.js',
+		filename: 'app.js',
 	},
 	plugins: [
 		new webpack.DefinePlugin({

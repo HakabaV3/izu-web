@@ -24,6 +24,7 @@
 			animation: LoginPage__SignInForm__toSignUp 240ms $ease-slide forwards;
 		}
 		.LoginPage__SignUpForm {
+			display: block;
 			animation: LoginPage__SignUpForm__toSignUp 240ms $ease-slide forwards;
 		}
 	}
@@ -49,7 +50,7 @@
 .LoginPage__SignUpForm {
 	position: absolute;
 	top: $md-w-gutter-1;
-	display: block;
+	display: none;
 	opacity: 0;
 	will-change: opacity;
 }
